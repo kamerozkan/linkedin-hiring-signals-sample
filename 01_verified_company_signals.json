@@ -1,0 +1,19 @@
+{
+  "companies": [
+    "https://www.linkedin.com/company/tiny-spec-inc/"
+  ],
+  "maxJobsPerCompany": 100,
+  "closureConfirmationScans": 2,
+  "emitInitialSnapshot": true,
+  "emitCurrentSnapshot": true,
+  "stateNamespace": "example-verified-company-signals-v0211",
+  "strictClosureQualityGate": true,
+  "verifyApplyLinks": true,
+  "strictVerificationQualityGate": true,
+  "maxJobsToVerify": 20,
+  "verificationMaxTotalChargeUsd": 0.1,
+  "maxConcurrency": 1,
+  "proxyConfiguration": {
+    "useApifyProxy": true
+  }
+}

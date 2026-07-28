@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LinkedIn Hiring Signals dataset record",
+  "description": "One privacy-minimized job lifecycle record emitted by the LinkedIn Hiring Signals Actor.",
+  "type": "object",
+  "properties": {
+    "eventType": {
+      "type": "string",
+      "enum": [
+        "new",
+        "changed",
+        "reopened",
+        "closed",
+        "current"
+      ]
+    },
+    "detectedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "companyId": {
+      "type": "string"
+    },
+    "companyName": {
+      "type": "string"
+    },
+    "companyUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "jobId": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "jobTitle": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "jobUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "postedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "firstSeenAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lastSeenAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "changedFields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source": {
+      "type": "string",
+      "const": "linkedin_public_jobs"
+    },
+    "verificationStatus": {
+      "type": "string",
+      "enum": [
+        "not_requested",
+        "not_applicable",
+        "completed",
+        "missing_result",
+        "skipped_limit",
+        "failed"
+      ]
+    },
+    "officialApplyUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "applyMethod": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "jobStatus": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "safeToPublish": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "reviewRequired": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "verificationConfidence": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "sourceProvider": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "companyWebsite": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "verifiedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "verificationEvidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ghostJobRisk": {
+      "type": "string",
+      "enum": [
+        "low",
+        "review",
+        "high",
+        "unknown"
+      ]
+    }
+  },
+  "required": [
+    "eventType",
+    "detectedAt",
+    "companyId",
+    "companyName",
+    "companyUrl",
+    "jobId",
+    "title",
+    "jobTitle",
+    "location",
+    "jobUrl",
+    "postedAt",
+    "firstSeenAt",
+    "lastSeenAt",
+    "changedFields",
+    "source",
+    "verificationStatus",
+    "officialApplyUrl",
+    "applyMethod",
+    "jobStatus",
+    "safeToPublish",
+    "reviewRequired",
+    "verificationConfidence",
+    "sourceProvider",
+    "companyWebsite",
+    "verifiedAt",
+    "verificationEvidence",
+    "ghostJobRisk"
+  ],
+  "additionalProperties": false
+}

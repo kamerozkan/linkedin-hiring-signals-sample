@@ -1,0 +1,26 @@
+{
+  "companies": [
+    "https://www.linkedin.com/company/hubspot/",
+    "https://www.linkedin.com/company/dropbox/",
+    "https://www.linkedin.com/company/notionhq/",
+    "https://www.linkedin.com/company/figma/"
+  ],
+  "maxJobsPerCompany": 1000,
+  "closureConfirmationScans": 2,
+  "emitInitialSnapshot": false,
+  "emitCurrentSnapshot": false,
+  "stateStoreName": "linkedin-hiring-signals-canary",
+  "stateNamespace": "auto",
+  "strictClosureQualityGate": true,
+  "verifyApplyLinks": false,
+  "maxConcurrency": 3,
+  "proxyConfiguration": {
+    "useApifyProxy": true
+  },
+  "closedJobRetentionDays": 90,
+  "strictVerificationQualityGate": true,
+  "verifierActorId": "kamerozkan/linkedin-job-apply-link-verifier",
+  "maxJobsToVerify": 500,
+  "verificationMaxTotalChargeUsd": 2,
+  "webhookBatchSize": 100
+}
