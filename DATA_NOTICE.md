@@ -6,25 +6,44 @@ This repository is a technical sample for the [LinkedIn Hiring Signals Actor](ht
 
 It is not a bulk dataset, a list of people, or a claim of comprehensive LinkedIn coverage.
 
-## Audit snapshot
+## Current release audit
 
-The following state was verified through the Apify API and Store interface on 2026-07-28:
+The following production state was verified through the Apify API and Console on 2026-08-11:
 
 | Item | Verified value |
 |---|---|
 | Actor | `kamerozkan/linkedin-hiring-signals` |
 | Actor ID | `ujkEG4gpQNbpYOQcc` |
 | Public | `true` |
-| Current latest build | `0.2.24`, build ID `vUTk1L8d6e1c9KvuM`, build status `SUCCEEDED` |
-| Public Store Example Tasks | 1 |
-| Public task ID | `6QgKcyXw08FiHSvlW` |
-| Latest successful public-task run | `DxrK8srz0FTbZxapu`, build `0.2.13`, dataset `A6iitS0JFVoRl9ywn`, 25 records |
-| Most recent successful Actor run | `l5iB19eIa1Koul0hM`, build `0.2.19`, dataset `ZXCYLVxtE1dmPk4Nb`, 0 records |
-| Latest successful non-empty sample run | `WEGdccXtGUhn6W3K3`, build `0.2.19`, dataset `LDdvGJOkttkFGoCQi`, 25 records |
+| Release | `0.2.27` |
+| Build | `bEfbjGAqzUnzCbDT4`, status `SUCCEEDED` |
+| Promoted tags | `latest`, `beta` |
+| Isolated release QA | 7 of 7 runs `SUCCEEDED` |
 
-The current `0.2.24` tag built successfully after those runs. No successful runtime observation of `0.2.24` was available in the inspected run history, so this repository does not claim that the sample records validate that version.
+The 0.2.27 release matrix covered:
 
-The most recent successful run emitted zero records after scanning 391 jobs. In a stateful monitor, a zero-event dataset can be a valid result when no configured lifecycle event is emitted.
+1. Canonical GitHub URL: run `ZAzoHlkhm7uKqB9DH`, 85 events.
+2. Numeric Slack company ID: run `q986J9PRqcGaCnGNT`, 18 events.
+3. LinkedIn jobs URL containing `f_C`: run `i0kWIS0r2uXrla90q`, 18 events.
+4. Repeat GitHub state: run `WlwTds4Njwy5BIutu`, zero duplicate current rows.
+5. GitHub plus Slack: run `R4g9ZIgw2JRFEe9Fu`, 103 events.
+6. Verification enabled: parent run `Eb8zhEkDfSwSGAfJA`, one submitted child job, one valid result, 18 parent events.
+7. Safe partial result: run `eDsnNlzth14ZsZIfT`, 85 valid GitHub events retained while an obsolete Zoom slug was rejected and reported in two warnings.
+
+All seven runs used exact build 0.2.27. This cohort validates the current release behavior. Apify's public 30-day Actor success statistic separately includes historical external runs on older builds and does not reset when a new build is deployed.
+
+## Output sample audit
+
+The output fixtures predate 0.2.27 and retain their original provenance. The following source run was verified on 2026-07-28:
+
+| Item | Verified value |
+|---|---|
+| Source run | `WEGdccXtGUhn6W3K3` |
+| Source build | `0.2.19` |
+| Source dataset | `LDdvGJOkttkFGoCQi` |
+| Source dataset records | 25 |
+
+The live output excerpt is not presented as an output from 0.2.27. The release matrix above is the separate runtime evidence for the current build.
 
 ## Sample provenance
 

@@ -1,0 +1,11 @@
+{
+  "companies": [
+    "https://www.linkedin.com/company/github/"
+  ],
+  "stateNamespace": "auto",
+  "closureConfirmationScans": 2,
+  "emitInitialSnapshot": true,
+  "emitCurrentSnapshot": true,
+  "strictClosureQualityGate": false,
+  "verifyApplyLinks": false
+}

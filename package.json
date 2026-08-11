@@ -1,0 +1,14 @@
+{
+  "name": "linkedin-hiring-signals-sample",
+  "version": "0.2.27",
+  "private": true,
+  "description": "Validation for LinkedIn Hiring Signals public inputs and output samples.",
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/validate-samples.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
