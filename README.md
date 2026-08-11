@@ -4,7 +4,7 @@
 
 [![Apify Actor](https://img.shields.io/badge/Apify-Run%20Actor-00c7b7?logo=apify)](https://apify.com/kamerozkan/linkedin-hiring-signals)
 ![Release](https://img.shields.io/badge/release-0.2.27-2f855a)
-![Release QA](https://img.shields.io/badge/0.2.27%20QA-7%2F7%20succeeded-2f855a)
+![Release QA](https://img.shields.io/badge/0.2.27%20QA-8%2F8%20succeeded-2f855a)
 ![Schema](https://img.shields.io/badge/schema-JSON%20Schema%202020--12-4c1)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
@@ -97,7 +97,7 @@ Two complete missing scans are required before a job closes by default. Increase
 
 ## Release 0.2.27 evidence
 
-The 2026-08-11 production build is `0.2.27`, build ID `bEfbjGAqzUnzCbDT4`. Its isolated release matrix completed 7 of 7 runs successfully:
+The 2026-08-11 production build is `0.2.27`, build ID `bEfbjGAqzUnzCbDT4`. Its isolated release matrix completed 8 of 8 runs successfully:
 
 - canonical GitHub company URL
 - numeric Slack company ID
@@ -106,6 +106,7 @@ The 2026-08-11 production build is `0.2.27`, build ID `bEfbjGAqzUnzCbDT4`. Its i
 - GitHub and Slack multi-company run
 - verification-enabled run with a schema-valid child result
 - partial GitHub plus obsolete Zoom slug run that retained 85 valid GitHub rows and reported the rejected company as warnings
+- [public Store example](https://apify.com/kamerozkan/linkedin-hiring-signals/examples/track-verified-company-hiring-signals) with GitHub, verification off, 85 events, and zero warnings or failures
 
 The matrix demonstrates the behavior of the new build. Apify's historical public 30-day success percentage also includes older external runs and is not reset by a deployment, so it should not be interpreted as the new-build cohort score.
 

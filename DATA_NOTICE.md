@@ -18,7 +18,7 @@ The following production state was verified through the Apify API and Console on
 | Release | `0.2.27` |
 | Build | `bEfbjGAqzUnzCbDT4`, status `SUCCEEDED` |
 | Promoted tags | `latest`, `beta` |
-| Isolated release QA | 7 of 7 runs `SUCCEEDED` |
+| Isolated release QA | 8 of 8 runs `SUCCEEDED` |
 
 The 0.2.27 release matrix covered:
 
@@ -29,8 +29,9 @@ The 0.2.27 release matrix covered:
 5. GitHub plus Slack: run `R4g9ZIgw2JRFEe9Fu`, 103 events.
 6. Verification enabled: parent run `Eb8zhEkDfSwSGAfJA`, one submitted child job, one valid result, 18 parent events.
 7. Safe partial result: run `eDsnNlzth14ZsZIfT`, 85 valid GitHub events retained while an obsolete Zoom slug was rejected and reported in two warnings.
+8. Public Store example: task `6QgKcyXw08FiHSvlW`, run `sG7bDec7xiolgvOae`, 85 GitHub events, zero warnings or failures.
 
-All seven runs used exact build 0.2.27. This cohort validates the current release behavior. Apify's public 30-day Actor success statistic separately includes historical external runs on older builds and does not reset when a new build is deployed.
+All eight runs used exact build 0.2.27. This cohort validates the current release behavior. Apify's public 30-day Actor success statistic separately includes historical external runs across the 30-day window and does not reset when a new build is deployed.
 
 ## Output sample audit
 
