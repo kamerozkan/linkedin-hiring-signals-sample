@@ -3,8 +3,8 @@
 # LinkedIn Hiring Signals: Sample Inputs and Event Schema
 
 [![Apify Actor](https://img.shields.io/badge/Apify-Run%20Actor-00c7b7?logo=apify)](https://apify.com/kamerozkan/linkedin-hiring-signals)
-![Release](https://img.shields.io/badge/release-0.2.27-2f855a)
-![Release QA](https://img.shields.io/badge/0.2.27%20QA-8%2F8%20succeeded-2f855a)
+![Release](https://img.shields.io/badge/release-0.2.28-2f855a)
+![Release QA](https://img.shields.io/badge/0.2.28%20exact--build%20QA-1%2F1%20succeeded-2f855a)
 ![Schema](https://img.shields.io/badge/schema-JSON%20Schema%202020--12-4c1)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
@@ -42,6 +42,20 @@ Accepted company values are:
 
 Use the current canonical company URL. If an obsolete slug redirects to another company, the Actor rejects that scan instead of returning plausible data for the wrong organization.
 
+## Use cases
+
+### Recruiting and talent intelligence
+
+Monitor competitors or target employers for new, changed, reopened, and confirmed closed roles. Send the change feed to an internal dashboard, Slack workflow, or recruiting system without collecting applicant or recruiter profiles.
+
+### B2B sales and account research
+
+Watch target accounts for company-level hiring signals such as a new function, location, or sustained expansion. Route relevant events to a CRM or alert workflow to help teams prioritize timely account research.
+
+### Portfolio and market monitoring
+
+Track hiring direction across a portfolio, supplier set, or market segment. Preserve a dated feed of openings and closures for trend analysis instead of repeatedly comparing full snapshots by hand.
+
 ## Three input examples
 
 ### 1. Changes-only monitoring, recommended
@@ -74,7 +88,7 @@ The included output records have different provenance:
 - [`02_replay_changed_location.json`](02_replay_changed_location.json) is a deterministic `changed` fixture.
 - [`03_replay_closed_confirmed.json`](03_replay_closed_confirmed.json) is a deterministic `closed` fixture after two complete absence scans.
 
-These records validate the public schema. They are not presented as customer activity or as the output of the 0.2.27 release QA cohort. See [`DATA_NOTICE.md`](DATA_NOTICE.md) for exact provenance and limitations.
+These records validate the public schema. They are not presented as customer activity or as the output of the 0.2.28 release QA run. See [`DATA_NOTICE.md`](DATA_NOTICE.md) for exact provenance and limitations.
 
 The captured live record uses `tiny-spec-inc`, Slack's legacy LinkedIn company slug at the time of that run.
 
@@ -82,7 +96,7 @@ The `OUTPUT` key-value-store record provides company coverage, completeness, war
 
 ## Safe partial results
 
-LinkedIn public guest pages can occasionally return a rate limit, repeated page, or incomplete inventory. Release 0.2.27 preserves useful results without inventing closures:
+LinkedIn public guest pages can occasionally return a rate limit, repeated page, or incomplete inventory. The Actor preserves useful results without inventing closures:
 
 - incomplete scans never advance missing-job counters
 - incomplete scans never emit `closed`
@@ -95,20 +109,25 @@ The normal default is `strictClosureQualityGate: false`. Set it to `true` only w
 
 Two complete missing scans are required before a job closes by default. Increase `closureConfirmationScans` for more conservative closure detection.
 
-## Release 0.2.27 evidence
+## Release 0.2.28 evidence
 
-The 2026-08-11 production build is `0.2.27`, build ID `bEfbjGAqzUnzCbDT4`. Its isolated release matrix completed 8 of 8 runs successfully:
+The 2026-08-12 production build is `0.2.28`, build ID `xn6xxoO0lOPW2BHDS`. Both `latest` and `beta` point to this exact build. Its exact-build production smoke completed 1 of 1 run successfully:
 
-- canonical GitHub company URL
-- numeric Slack company ID
-- LinkedIn jobs URL containing `f_C`
-- repeat GitHub run with no duplicate current rows
-- GitHub and Slack multi-company run
-- verification-enabled run with a schema-valid child result
-- partial GitHub plus obsolete Zoom slug run that retained 85 valid GitHub rows and reported the rejected company as warnings
-- [public Store example](https://apify.com/kamerozkan/linkedin-hiring-signals/examples/track-verified-company-hiring-signals) with GitHub, verification off, 85 events, and zero warnings or failures
+- run `VvDekUpcdKmFFJGC6` monitored the canonical GitHub company URL
+- dataset `Vm4uvM7pp5pO3SsMk` contains 82 GitHub `new` events
+- 1 of 1 requested companies produced a complete scan, for 100% scan success and 100% closure-safe coverage
+- the run reported zero warnings and zero failures
+- recorded charge events were one company scan, 82 dataset rows, and one Actor start; because this was an owner QA run, accounted creator revenue was $0
 
-The matrix demonstrates the behavior of the new build. Apify's historical public 30-day success percentage also includes older external runs and is not reset by a deployment, so it should not be interpreted as the new-build cohort score.
+The Store exposes three public Examples:
+
+- [Monitor GitHub job changes](https://apify.com/kamerozkan/linkedin-hiring-signals/examples/track-verified-company-hiring-signals), task `6QgKcyXw08FiHSvlW`
+- [Compare GitHub and Slack hiring](https://apify.com/kamerozkan/linkedin-hiring-signals/examples/compare-github-and-slack-hiring), task `7NsYRLjycKA3ie3AV`
+- [Verify a Slack job apply link](https://apify.com/kamerozkan/linkedin-hiring-signals/examples/verify-a-slack-job-apply-link), task `UQtqO2vnNf6s2m1lB`
+
+Their current public runs all succeeded on 0.2.27 and remain valid configuration and output demonstrations. They are not counted as 0.2.28 release evidence. The prior 0.2.27 isolated release matrix completed 8 of 8 runs successfully and remains documented in [`DATA_NOTICE.md`](DATA_NOTICE.md).
+
+Apify's historical public 30-day success percentage includes older external runs and is not reset by a deployment, so it should not be interpreted as the 0.2.28 exact-build score.
 
 ## Pricing
 
@@ -122,6 +141,16 @@ The Actor uses pay-per-event pricing. Current completed company-scan prices are:
 - Actor start: $0.00005
 
 Incomplete company scans are not charged as completed company scans. Platform usage for this Actor is included in its event pricing. Optional apply-link verification is billed separately at the price shown on the [verifier Store page](https://apify.com/kamerozkan/linkedin-job-apply-link-verifier).
+
+Approximate monthly monitoring costs at the Free-tier company-scan price, using a 30-day month:
+
+| Schedule | Completed company scans | Company-scan cost |
+| --- | ---: | ---: |
+| 10 companies once daily | 300 | about $1.50/month |
+| 100 companies once daily | 3,000 | about $15/month |
+| 100 companies every 6 hours | 12,000 | about $60/month |
+
+These estimates assume complete scans, changes-only mode, and verification turned off. Actor starts and emitted dataset rows add small variable charges; optional apply-link verification is billed separately. Bronze, Silver, Gold, Platinum, and Diamond company-scan rates are lower than the Free-tier rate used above.
 
 ## Reliability boundaries
 
