@@ -1,6 +1,6 @@
-> **Live Actor:** [Run LinkedIn Hiring Signals on Apify](https://apify.com/kamerozkan/linkedin-hiring-signals)
+> **Live Actor:** [Run LinkedIn Company Jobs Monitor & Change Feed on Apify](https://apify.com/kamerozkan/linkedin-hiring-signals)
 
-# LinkedIn Hiring Signals: Sample Inputs and Event Schema
+# LinkedIn Company Jobs Monitor & Change Feed: Samples
 
 [![Apify Actor](https://img.shields.io/badge/Apify-Run%20Actor-00c7b7?logo=apify)](https://apify.com/kamerozkan/linkedin-hiring-signals)
 ![Release](https://img.shields.io/badge/release-0.2.28-2f855a)
@@ -8,7 +8,7 @@
 ![Schema](https://img.shields.io/badge/schema-JSON%20Schema%202020--12-4c1)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-Monitor public LinkedIn company job pages and receive typed records for new, changed, reopened, closed, and current postings. The Actor keeps watchlist state between runs, so it can report lifecycle changes instead of treating every scan as unrelated.
+Monitor public LinkedIn company job pages and receive typed change-feed records for new, changed, reopened, closed, and current postings. The Actor keeps watchlist state between runs, so it can report lifecycle changes instead of treating every scan as unrelated.
 
 This repository contains three copy-ready inputs, privacy-minimized output examples, and the dataset contract in [`dataset_record.schema.json`](dataset_record.schema.json).
 
