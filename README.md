@@ -12,6 +12,8 @@ Monitor public LinkedIn company job pages and receive typed records for new, cha
 
 This repository contains three copy-ready inputs, privacy-minimized output examples, and the dataset contract in [`dataset_record.schema.json`](dataset_record.schema.json).
 
+The product is a company and job-posting monitor, not a people-search or candidate-sourcing tool. It is designed for repeat employer watchlists where a dated change feed is more useful than repeatedly checking the same public job pages by hand.
+
 ## Recommended quick start
 
 Copy [`01_github_changes_only.json`](01_github_changes_only.json) into the Actor input:
@@ -42,19 +44,34 @@ Accepted company values are:
 
 Use the current canonical company URL. If an obsolete slug redirects to another company, the Actor rejects that scan instead of returning plausible data for the wrong organization.
 
-## Use cases
+## Buyer workflows
 
-### Recruiting and talent intelligence
+### LinkedIn job posting monitor for ATS and recruiting operations
 
-Monitor competitors or target employers for new, changed, reopened, and confirmed closed roles. Send the change feed to an internal dashboard, Slack workflow, or recruiting system without collecting applicant or recruiter profiles.
+Monitor target employers for new, changed, reopened, and confirmed closed roles. Send the dataset or webhook events to an ATS-side analytics layer, recruiting-operations dashboard, or internal alert workflow without collecting applicant or recruiter profiles.
 
-### B2B sales and account research
+The Actor provides a dataset, API output, and optional webhook delivery. It does not write into an ATS by itself; that final mapping remains part of the buyer's downstream automation.
 
-Watch target accounts for company-level hiring signals such as a new function, location, or sustained expansion. Route relevant events to a CRM or alert workflow to help teams prioritize timely account research.
+### RPO and staffing-company market mapping
 
-### Portfolio and market monitoring
+Create one saved Task per client, desk, geography, or employer segment and keep `stateNamespace` set to `auto`. Each Task then maintains an isolated watchlist history that can support RPO market mapping or staffing business-development research without mixing client state.
 
-Track hiring direction across a portfolio, supplier set, or market segment. Preserve a dated feed of openings and closures for trend analysis instead of repeatedly comparing full snapshots by hand.
+### Recruitment market intelligence API and dataset
+
+Use changes-only mode for a dated hiring-movement feed. Use full-snapshot mode when the buyer needs the current open-job inventory on every run. The records can support employer, location, and role-family analysis, but polling cadence and public-page availability still determine what can be observed.
+
+### Company hiring signals for B2B account research
+
+Watch target accounts for company-level signals such as a new function, location, or sustained expansion. Route relevant events to a CRM or research queue as a reason to investigate. A hiring event is not proof of budget, purchase intent, or an open sales opportunity.
+
+### Choose the right sample
+
+| Buyer job | Start with | Important boundary |
+| --- | --- | --- |
+| ATS or recruiting-operations change feed | [`01_github_changes_only.json`](01_github_changes_only.json) | Destination-field mapping is still required |
+| RPO client or market watchlist | [`01_github_changes_only.json`](01_github_changes_only.json), saved as one Task per watchlist | Keep watchlist state isolated |
+| Recruitment market intelligence snapshot | [`02_github_current_snapshot.json`](02_github_current_snapshot.json) | Full snapshots create more dataset-row events |
+| Official apply-route review | [`03_github_verified_apply_links.json`](03_github_verified_apply_links.json) | Verification is optional and billed separately |
 
 ## Three input examples
 
@@ -121,15 +138,15 @@ The 2026-08-12 production build is `0.2.28`, build ID `xn6xxoO0lOPW2BHDS`. Both 
 
 The Store exposes three public Examples:
 
-- [Monitor GitHub job changes](https://apify.com/kamerozkan/linkedin-hiring-signals/examples/track-verified-company-hiring-signals), task `6QgKcyXw08FiHSvlW`
-- [Compare GitHub and Slack hiring](https://apify.com/kamerozkan/linkedin-hiring-signals/examples/compare-github-and-slack-hiring), task `7NsYRLjycKA3ie3AV`
-- [Verify a Slack job apply link](https://apify.com/kamerozkan/linkedin-hiring-signals/examples/verify-a-slack-job-apply-link), task `UQtqO2vnNf6s2m1lB`
+- [Create a GitHub job-change monitor](https://console.apify.com/create-task-from-example/6QgKcyXw08FiHSvlW), task `6QgKcyXw08FiHSvlW`
+- [Create a GitHub and Slack hiring comparison](https://console.apify.com/create-task-from-example/7NsYRLjycKA3ie3AV), task `7NsYRLjycKA3ie3AV`
+- [Create a Slack apply-link verification Task](https://console.apify.com/create-task-from-example/UQtqO2vnNf6s2m1lB), task `UQtqO2vnNf6s2m1lB`
 
 Their current public runs all succeeded on 0.2.27 and remain valid configuration and output demonstrations. They are not counted as 0.2.28 release evidence. The prior 0.2.27 isolated release matrix completed 8 of 8 runs successfully and remains documented in [`DATA_NOTICE.md`](DATA_NOTICE.md).
 
 Apify's historical public 30-day success percentage includes older external runs and is not reset by a deployment, so it should not be interpreted as the 0.2.28 exact-build score.
 
-## Pricing
+## Pricing and buyer cost model
 
 The Actor uses pay-per-event pricing. Current completed company-scan prices are:
 
@@ -152,6 +169,24 @@ Approximate monthly monitoring costs at the Free-tier company-scan price, using 
 
 These estimates assume complete scans, changes-only mode, and verification turned off. Actor starts and emitted dataset rows add small variable charges; optional apply-link verification is billed separately. Bronze, Silver, Gold, Platinum, and Diamond company-scan rates are lower than the Free-tier rate used above.
 
+### Seven-day buyer pilot
+
+Use [`01_github_changes_only.json`](01_github_changes_only.json) as the base, expand `companies` to 25 agreed canonical company URLs, and set `strictClosureQualityGate` to `true` when the workflow must reject coverage below 95%. Save the input as one Task and run that same Task once daily for seven days so state remains comparable.
+
+If all 25 company scans complete each day, the company-scan component is 175 scans, or `$0.875` at the Free-tier rate. Actor starts and emitted dataset rows add small variable charges.
+
+Judge the pilot on observed evidence:
+
+- `scanSuccessRate`, `closureSafeRate`, warnings, and failures in each `OUTPUT` record
+- whether a manual sample review finds the emitted changes useful and correctly classified
+- whether the dataset, API, or webhook fits the intended ATS, RPO, CRM, or analytics workflow
+- measured operator time before and during the pilot
+- total run charges, including any optional verification
+
+Scale only when the measured workflow value is greater than the measured cost. The Actor does not promise time savings, placements, sales opportunities, or a particular return on investment.
+
+To control cost, keep changes-only mode on, choose the lowest useful schedule frequency, leave verification off until its fields are needed, and use the verification job and charge limits when enabling it. The Store pricing shown at run time is authoritative.
+
 ## Reliability boundaries
 
 The crawler reads LinkedIn's reported inventory total as a coverage target, maintains session identity within an attempt, paginates by actual returned jobs, retries transient failures with independent sessions, and requires explicit no-results evidence before accepting an empty inventory.
@@ -159,6 +194,51 @@ The crawler reads LinkedIn's reported inventory total as a coverage target, main
 The design favors delayed or missed closures over false closures. Public endpoints can still change, throttle, block, or return partial inventory. Polling cadence determines detection latency.
 
 `closed` means a posting was absent from the configured number of complete scans. It does not prove the role was filled, cancelled, or never existed. `ghostJobRisk` is a conservative heuristic, not proof of employer intent.
+
+## FAQ for ATS, RPO, and recruitment intelligence buyers
+
+### Is this a LinkedIn jobs scraper or a job-change monitor?
+
+It supports both workflows. The first scheduled run can emit the current openings. Later runs return only changes by default. Set `emitCurrentSnapshot: true` when a complete current snapshot is required on every run.
+
+### Does it integrate directly with an ATS, CRM, or BI tool?
+
+The Actor exposes its records through the Apify dataset and API and can send non-empty event batches to an HTTPS webhook. A buyer still needs to map those fields into the destination system. No native ATS or CRM write is claimed.
+
+### Can an RPO keep client watchlists separate?
+
+Yes. Use one saved Task per client or market and leave `stateNamespace` as `auto`. API callers should assign one stable, unique namespace to each independent watchlist.
+
+### Does `closed` mean that a role was filled?
+
+No. It means the posting was absent from the configured number of complete scans. It does not prove whether the employer filled, cancelled, paused, or replaced the role.
+
+### Why can a run succeed with warnings?
+
+A partial run may still contain safe additions or changes for usable companies. Incomplete scans do not advance closure state and are not charged as completed company scans. Enable the strict closure-quality gate when the downstream workflow must reject coverage below 95%.
+
+### Is complete LinkedIn coverage guaranteed?
+
+No. Public pages can change, throttle, block, or return partial inventory. The Actor reports coverage and applies conservative closure rules so the buyer can make a workflow decision from explicit run evidence.
+
+### Does it need a LinkedIn account or collect candidate profiles?
+
+No LinkedIn login or user cookies are required. The output contract excludes applicant and recruiter profiles, emails, phone numbers, resumes, and raw job descriptions.
+
+### What is charged when a scan is incomplete?
+
+An incomplete company scan is not charged as a completed company scan. Actor-start and emitted dataset-row events, if any, remain separate. Optional official apply-link verification is billed by the verifier Actor.
+
+## Support: share a failed run with enough evidence
+
+For a failed, incomplete, or unexpected run:
+
+1. Open the run in Apify Console and inspect its log and `OUTPUT` record.
+2. Review the input, log, and output for client-sensitive values before sharing anything.
+3. Open the Actor's [Issues page](https://apify.com/kamerozkan/linkedin-hiring-signals/issues) and include the full Console run URL, the expected result, and the observed result.
+4. State whether a retry succeeded and which company input was affected. Never paste an Apify token or webhook secret into the issue text.
+
+Apify documents that including a run URL in an Actor issue automatically grants the Actor developer access to that run and its default storages, even when general resource access is restricted. The permission is limited to the reported run and related storages. See [Apify's run-sharing documentation](https://docs.apify.com/account/collaboration/general-resource-access#automatically-sharing-runs-via-actor-issues).
 
 ## Privacy and responsible use
 
