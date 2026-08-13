@@ -1,14 +1,14 @@
-> **Live Actor:** [Run LinkedIn Hiring Signals on Apify](https://apify.com/kamerozkan/linkedin-hiring-signals)
+> **Live Actor:** [Run LinkedIn Company Jobs Monitor & Change Feed on Apify](https://apify.com/kamerozkan/linkedin-hiring-signals)
 
-# LinkedIn Hiring Signals: Sample Inputs and Event Schema
+# LinkedIn Company Jobs Monitor & Change Feed: Samples
 
 [![Apify Actor](https://img.shields.io/badge/Apify-Run%20Actor-00c7b7?logo=apify)](https://apify.com/kamerozkan/linkedin-hiring-signals)
-![Release](https://img.shields.io/badge/release-0.2.28-2f855a)
-![Release QA](https://img.shields.io/badge/0.2.28%20exact--build%20QA-1%2F1%20succeeded-2f855a)
+![Release](https://img.shields.io/badge/release-0.2.29-2f855a)
+![Release QA](https://img.shields.io/badge/0.2.29%20exact--build%20QA-2%2F2%20succeeded-2f855a)
 ![Schema](https://img.shields.io/badge/schema-JSON%20Schema%202020--12-4c1)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-Monitor public LinkedIn company job pages and receive typed records for new, changed, reopened, closed, and current postings. The Actor keeps watchlist state between runs, so it can report lifecycle changes instead of treating every scan as unrelated.
+Monitor public LinkedIn company job pages and receive typed change-feed records for new, changed, reopened, closed, and current postings. The Actor keeps watchlist state between runs, so it can report lifecycle changes instead of treating every scan as unrelated.
 
 This repository contains three copy-ready inputs, privacy-minimized output examples, and the dataset contract in [`dataset_record.schema.json`](dataset_record.schema.json).
 
@@ -105,7 +105,7 @@ The included output records have different provenance:
 - [`02_replay_changed_location.json`](02_replay_changed_location.json) is a deterministic `changed` fixture.
 - [`03_replay_closed_confirmed.json`](03_replay_closed_confirmed.json) is a deterministic `closed` fixture after two complete absence scans.
 
-These records validate the public schema. They are not presented as customer activity or as the output of the 0.2.28 release QA run. See [`DATA_NOTICE.md`](DATA_NOTICE.md) for exact provenance and limitations.
+These records validate the public schema. They are not presented as customer activity or as the output of the 0.2.29 release QA runs. See [`DATA_NOTICE.md`](DATA_NOTICE.md) for exact provenance and limitations.
 
 The captured live record uses `tiny-spec-inc`, Slack's legacy LinkedIn company slug at the time of that run.
 
@@ -126,15 +126,16 @@ The normal default is `strictClosureQualityGate: false`. Set it to `true` only w
 
 Two complete missing scans are required before a job closes by default. Increase `closureConfirmationScans` for more conservative closure detection.
 
-## Release 0.2.28 evidence
+## Release 0.2.29 evidence
 
-The 2026-08-12 production build is `0.2.28`, build ID `xn6xxoO0lOPW2BHDS`. Both `latest` and `beta` point to this exact build. Its exact-build production smoke completed 1 of 1 run successfully:
+The 2026-08-13 production build is `0.2.29`, build ID `a7hwqM4pB2CpzYZqK`. Both `latest` and `beta` point to this exact build. Its baseline and changes-only repeat completed 2 of 2 runs successfully:
 
-- run `VvDekUpcdKmFFJGC6` monitored the canonical GitHub company URL
-- dataset `Vm4uvM7pp5pO3SsMk` contains 82 GitHub `new` events
-- 1 of 1 requested companies produced a complete scan, for 100% scan success and 100% closure-safe coverage
-- the run reported zero warnings and zero failures
-- recorded charge events were one company scan, 82 dataset rows, and one Actor start; because this was an owner QA run, accounted creator revenue was $0
+- baseline run `STSy1VqhGybgn6Q36` monitored the canonical GitHub company URL and wrote 77 unique, schema-valid `new` rows to dataset `ZiA2FzQfqfd9WOXpW`
+- changes-only repeat `3dDAac1Qf6hvws4tZ` scanned the same 77 jobs and emitted zero duplicate rows to dataset `o39RS4nZJyRltAqMc`
+- both runs completed 1 of 1 requested company scans, with 100% scan success and 100% closure-safe coverage
+- both runs reported zero warnings and zero failures
+- recorded charge events were two company scans, 77 dataset rows, and two Actor starts; because these were owner QA runs, accounted creator revenue was $0
+- the baseline and repeat stayed below the `$0.01` maximum charge and used approximately `$0.00094` and `$0.00046` of platform resources, respectively
 
 The Store exposes three public Examples:
 
@@ -142,9 +143,11 @@ The Store exposes three public Examples:
 - [Create a GitHub and Slack hiring comparison](https://console.apify.com/create-task-from-example/7NsYRLjycKA3ie3AV), task `7NsYRLjycKA3ie3AV`
 - [Create a Slack apply-link verification Task](https://console.apify.com/create-task-from-example/UQtqO2vnNf6s2m1lB), task `UQtqO2vnNf6s2m1lB`
 
-Their current public runs all succeeded on 0.2.27 and remain valid configuration and output demonstrations. They are not counted as 0.2.28 release evidence. The prior 0.2.27 isolated release matrix completed 8 of 8 runs successfully and remains documented in [`DATA_NOTICE.md`](DATA_NOTICE.md).
+Their current public runs all succeeded on 0.2.27 and remain valid configuration and output demonstrations. They are not counted as 0.2.29 release evidence. The prior 0.2.27 isolated release matrix completed 8 of 8 runs successfully and remains documented in [`DATA_NOTICE.md`](DATA_NOTICE.md).
 
-Apify's historical public 30-day success percentage includes older external runs and is not reset by a deployment, so it should not be interpreted as the 0.2.28 exact-build score.
+After 2026-08-13 10:51Z, the Store and all three direct Example pages returned HTTP 200 with `index,follow` and self-canonical URLs. The Actor title, SEO description, and the corrected Compare and Verify Example descriptions matched their saved values.
+
+Apify's historical public 30-day success percentage includes older external runs and is not reset by a deployment, so it should not be interpreted as the 0.2.29 exact-build score.
 
 ## Pricing and buyer cost model
 

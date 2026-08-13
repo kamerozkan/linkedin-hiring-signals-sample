@@ -8,26 +8,27 @@ It is not a bulk dataset, a list of people, or a claim of comprehensive LinkedIn
 
 ## Current release audit
 
-The following production state was verified through the Apify API on 2026-08-12:
+The following production state was verified through the Apify API on 2026-08-13:
 
 | Item | Verified value |
 |---|---|
 | Actor | `kamerozkan/linkedin-hiring-signals` |
 | Actor ID | `ujkEG4gpQNbpYOQcc` |
 | Public | `true` |
-| Release | `0.2.28` |
-| Build | `xn6xxoO0lOPW2BHDS`, status `SUCCEEDED` |
+| Release | `0.2.29` |
+| Build | `a7hwqM4pB2CpzYZqK`, status `SUCCEEDED` |
 | Promoted tags | `latest`, `beta` |
-| Exact-build production smoke | 1 of 1 run `SUCCEEDED` |
+| Exact-build production QA | 2 of 2 runs `SUCCEEDED` |
 
-The exact 0.2.28 production smoke was:
+The exact 0.2.29 production QA was:
 
-1. Canonical GitHub URL: run `VvDekUpcdKmFFJGC6`, dataset `Vm4uvM7pp5pO3SsMk`.
-2. The run found 82 jobs and emitted 82 `new` events for GitHub.
-3. One of one requested companies produced a complete scan, with zero incomplete scans and zero failed companies.
-4. `scanSuccessRate` and `closureSafeRate` were both `1`, or 100%.
-5. The run reported zero warnings and zero failures.
-6. Recorded charge events were one company scan, 82 dataset rows, and one Actor start. Because this was an owner QA run, accounted creator revenue was $0.
+1. Canonical GitHub baseline: run `STSy1VqhGybgn6Q36`, dataset `ZiA2FzQfqfd9WOXpW`.
+2. Changes-only repeat: run `3dDAac1Qf6hvws4tZ`, dataset `o39RS4nZJyRltAqMc`.
+3. The baseline found 77 jobs and emitted 77 unique, schema-valid `new` events. The repeat scanned the same 77 jobs and emitted zero duplicate events.
+4. Both runs completed one of one requested company scans. `scanSuccessRate` and `closureSafeRate` were both `1`, or 100%.
+5. Both runs reported zero warnings and zero failures.
+6. Recorded charge events were two company scans, 77 dataset rows, and two Actor starts. Because these were owner QA runs, accounted creator revenue was $0.
+7. The baseline and repeat stayed below the `$0.01` maximum charge and used approximately `$0.00094` and `$0.00046` of platform resources, respectively.
 
 The Store currently exposes three public Examples:
 
@@ -37,7 +38,13 @@ The Store currently exposes three public Examples:
 | Compare GitHub and Slack hiring | `7NsYRLjycKA3ie3AV` | `0.2.27`, `SUCCEEDED` |
 | Verify a Slack job apply link | `UQtqO2vnNf6s2m1lB` | `0.2.27`, `SUCCEEDED` |
 
-These public Example runs remain valid configuration and output demonstrations, but they are not presented as 0.2.28 release QA.
+These public Example runs remain valid configuration and output demonstrations, but they are not presented as 0.2.29 release QA. After 2026-08-13 10:51Z, all three direct Example pages returned HTTP 200 with `index,follow` and self-canonical URLs.
+
+## Prior 0.2.28 release audit
+
+The 2026-08-12 production build was `0.2.28`, build ID `xn6xxoO0lOPW2BHDS`. Its exact-build production smoke, run `VvDekUpcdKmFFJGC6`, finished with `SUCCEEDED` and wrote 82 GitHub `new` events to dataset `Vm4uvM7pp5pO3SsMk`.
+
+One of one requested companies produced a complete scan, `scanSuccessRate` and `closureSafeRate` were both 100%, and the run reported zero warnings and zero failures. Recorded charge events were one company scan, 82 dataset rows, and one Actor start. Because this was an owner QA run, accounted creator revenue was $0.
 
 ## Prior 0.2.27 release audit
 
@@ -56,7 +63,7 @@ All eight runs used exact build 0.2.27. This cohort remains historical evidence 
 
 ## Output sample audit
 
-The output fixtures predate 0.2.28 and retain their original provenance. The following source run was verified on 2026-07-28:
+The output fixtures predate 0.2.29 and retain their original provenance. The following source run was verified on 2026-07-28:
 
 | Item | Verified value |
 |---|---|
@@ -65,7 +72,7 @@ The output fixtures predate 0.2.28 and retain their original provenance. The fol
 | Source dataset | `LDdvGJOkttkFGoCQi` |
 | Source dataset records | 25 |
 
-The live output excerpt is not presented as an output from 0.2.28. The exact-build production smoke above is the separate runtime evidence for the current build.
+The live output excerpt is not presented as an output from 0.2.29. The exact-build production QA above is the separate runtime evidence for the current build.
 
 ## Sample provenance
 
