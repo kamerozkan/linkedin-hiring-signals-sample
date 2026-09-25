@@ -283,3 +283,5 @@ The run summary adds `status` and `qualityError`. See [run summary schema](run_s
 - Local validation: 108 tests passed, including retention after a later HTTP 400, initial-request failure propagation, and warnings for a cap above 95% aggregate coverage.
 
 These are dated public-source checks from 25 September 2026. Excerpts are not full datasets. No claim is made that every upstream inventory can be completely retrieved.
+
+The real Stripe regression also reproduced the upstream rejection: [run L1hEidxt9wq6xbpdY](https://console.apify.com/actors/ujkEG4gpQNbpYOQcc/runs/L1hEidxt9wq6xbpdY) retained 1,000 observed jobs when later pagination returned HTTP 400. It correctly FAILED the quality gate, reported source_pagination_limit, and charged zero company scans. [Input](06_live_stripe_input.json), [summary](06_live_stripe_summary.json), [three-row excerpt](06_live_stripe_output_excerpt.json). A 100% ratio against a rounded source count is not proof of complete inventory; complete remains false.

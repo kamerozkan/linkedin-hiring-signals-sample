@@ -1,0 +1,65 @@
+{
+  "status": "FAILED_QUALITY_GATE",
+  "qualityError": "No company returned a usable inventory. Partial diagnostics remain available, but watchlist state, webhooks, and company-scan billing were not committed.",
+  "generatedAt": "2026-09-25T08:02:49.065Z",
+  "companiesRequested": 1,
+  "companiesScanned": 1,
+  "companiesFailed": 0,
+  "completeScans": 0,
+  "incompleteScans": 1,
+  "scanSuccessRate": 0,
+  "closureSafeRate": 0,
+  "scanAttempts": 2,
+  "pagesFetched": 179,
+  "retryRecoveries": 0,
+  "jobsSeen": 1000,
+  "scans": [
+    {
+      "input": "https://www.linkedin.com/company/stripe/",
+      "companyId": "2135371",
+      "companyName": "Stripe",
+      "jobsSeen": 1000,
+      "expectedJobs": 1000,
+      "coverageRatio": 1,
+      "complete": false,
+      "usable": false,
+      "attempts": 2,
+      "pagesFetched": 179,
+      "stopReason": "source_pagination_limit"
+    }
+  ],
+  "eventsEmitted": 1000,
+  "eventsByType": {
+    "new": 1000,
+    "changed": 0,
+    "reopened": 0,
+    "closed": 0,
+    "current": 0
+  },
+  "stateStoreName": "hiring-repair-audit-20260925",
+  "stateNamespace": "stripe-fixed",
+  "stateLock": {
+    "queueName": "lhs-lock-36257cac495031abe6bc1836",
+    "acquired": true
+  },
+  "rollingSlo": {
+    "sampleCount": 1,
+    "windowStartedAt": "2026-09-25T08:02:49.065Z",
+    "windowEndedAt": "2026-09-25T08:02:49.065Z",
+    "windowDays": 0,
+    "scanSuccessRate": 0,
+    "closureSafeRate": 0,
+    "targetRate": 0.95,
+    "mature": false,
+    "meetsScanTarget": false,
+    "meetsClosureTarget": false
+  },
+  "failures": [],
+  "warnings": [
+    "LinkedIn rejected further pagination for: Stripe. Observed jobs were retained; inventory remains incomplete, with no closure or company-scan charge."
+  ],
+  "billing": {
+    "pricingModel": "PAY_PER_EVENT",
+    "companiesCharged": 0
+  }
+}
