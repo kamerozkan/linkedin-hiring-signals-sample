@@ -184,5 +184,6 @@
     "verificationEvidence",
     "ghostJobRisk"
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "$comment": "Event contract reviewed for the September 25, 2026 runtime repair. Run-level completeness and quality errors are documented in run_summary.schema.json."
 }

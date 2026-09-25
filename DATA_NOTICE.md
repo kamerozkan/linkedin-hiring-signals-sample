@@ -136,3 +136,5 @@ Do not enrich these samples with personal data unless you have an independent la
 - The Actor is not an official LinkedIn integration and is not endorsed by LinkedIn.
 
 Users are responsible for reviewing applicable law, platform terms, retention rules, and downstream use requirements.
+
+September 25, 2026 repair evidence uses owner-run tests of public company job pages. No customer run data is included. Partial samples are explicitly labeled and do not represent a complete company inventory or evidence that unobserved jobs are closed.

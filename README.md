@@ -265,3 +265,21 @@ It parses every JSON file, validates the three input contracts, checks output re
 - [Run the apply-link verifier](https://apify.com/kamerozkan/linkedin-job-apply-link-verifier)
 - [Read the sample data notice](DATA_NOTICE.md)
 - [Inspect the output schema](dataset_record.schema.json)
+
+## Reliability repair: 25 September 2026
+
+Build `0.2.37` (`OHA8RiqQ9brwK7EX7`) is published as `latest`.
+
+The runtime preserves observed job rows if LinkedIn rejects a later pagination request with HTTP 400. Those scans report `source_pagination_limit`, remain incomplete and cannot close missing jobs or incur a completed-company-scan charge. Increasing the input limit does not remove upstream limits.
+
+Configured caps are now always disclosed in OUTPUT warnings, including a 23-of-24 watchlist that exceeds the aggregate 95% threshold. Blocking quality gates now fail the Apify run after saving diagnostic output, instead of reporting SUCCEEDED with no usable company inventory.
+
+The run summary adds `status` and `qualityError`. See [run summary schema](run_summary.schema.json) and [current input schema](input_schema.json). Existing job-event fields remain compatible. A FAILED run can contain valuable partial observations; it must not be interpreted as a complete inventory.
+
+### Cloud verification evidence
+
+- Healthy GitHub inventory: [run nC2JI2KxdBtu3OmN1](https://console.apify.com/actors/ujkEG4gpQNbpYOQcc/runs/nC2JI2KxdBtu3OmN1) delivered 79 of 79 expected jobs in about 10 seconds, with one completed-company charge. [Input](04_live_healthy_input.json), [summary](04_live_healthy_summary.json), [three-row excerpt](04_live_healthy_output_excerpt.json).
+- Deliberately capped GitHub inventory: [run 4fwpJ8cdoScqNjWsH](https://console.apify.com/actors/ujkEG4gpQNbpYOQcc/runs/4fwpJ8cdoScqNjWsH) correctly FAILED its quality gate, retained all 25 observed rows, and charged zero company scans. [Input](05_live_quality_gate_input.json), [summary](05_live_quality_gate_summary.json), [three-row excerpt](05_live_quality_gate_output_excerpt.json). This expected failure is a regression test, not a successful complete scrape.
+- Local validation: 108 tests passed, including retention after a later HTTP 400, initial-request failure propagation, and warnings for a cap above 95% aggregate coverage.
+
+These are dated public-source checks from 25 September 2026. Excerpts are not full datasets. No claim is made that every upstream inventory can be completely retrieved.

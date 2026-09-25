@@ -1,0 +1,63 @@
+{
+  "status": "SUCCEEDED",
+  "qualityError": null,
+  "generatedAt": "2026-09-25T07:56:55.652Z",
+  "companiesRequested": 1,
+  "companiesScanned": 1,
+  "companiesFailed": 0,
+  "completeScans": 1,
+  "incompleteScans": 0,
+  "scanSuccessRate": 1,
+  "closureSafeRate": 1,
+  "scanAttempts": 1,
+  "pagesFetched": 3,
+  "retryRecoveries": 0,
+  "jobsSeen": 79,
+  "scans": [
+    {
+      "input": "https://www.linkedin.com/company/github/",
+      "companyId": "1418841",
+      "companyName": "GitHub",
+      "jobsSeen": 79,
+      "expectedJobs": 79,
+      "coverageRatio": 1,
+      "complete": true,
+      "usable": true,
+      "attempts": 1,
+      "pagesFetched": 3,
+      "stopReason": "expected_count_reached"
+    }
+  ],
+  "eventsEmitted": 79,
+  "eventsByType": {
+    "new": 79,
+    "changed": 0,
+    "reopened": 0,
+    "closed": 0,
+    "current": 0
+  },
+  "stateStoreName": "hiring-repair-audit-20260925",
+  "stateNamespace": "github-fixed",
+  "stateLock": {
+    "queueName": "lhs-lock-a7297db8d2024ba96c0be726",
+    "acquired": true
+  },
+  "rollingSlo": {
+    "sampleCount": 1,
+    "windowStartedAt": "2026-09-25T07:56:55.652Z",
+    "windowEndedAt": "2026-09-25T07:56:55.652Z",
+    "windowDays": 0,
+    "scanSuccessRate": 1,
+    "closureSafeRate": 1,
+    "targetRate": 0.95,
+    "mature": false,
+    "meetsScanTarget": true,
+    "meetsClosureTarget": true
+  },
+  "failures": [],
+  "warnings": [],
+  "billing": {
+    "pricingModel": "PAY_PER_EVENT",
+    "companiesCharged": 1
+  }
+}

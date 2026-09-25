@@ -1,0 +1,169 @@
+{
+    "title": "LinkedIn Verified Hiring Signals input",
+    "description": "Monitor public company jobs and receive new, changed, reopened, and safely confirmed closed hiring signals.",
+    "type": "object",
+    "schemaVersion": 1,
+    "additionalProperties": false,
+    "properties": {
+        "companies": {
+            "title": "Companies",
+            "description": "LinkedIn company URLs, company jobs or search URLs containing f_C, numeric LinkedIn company IDs, or bare company slugs. URLs from other domains are rejected before the run starts.",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^\\s*(?:[A-Za-z0-9][A-Za-z0-9-]*|https?://(?:[A-Za-z0-9-]+\\.)*linkedin\\.com/\\S*)\\s*$"
+            },
+            "editor": "stringList",
+            "sectionCaption": "Companies to monitor",
+            "prefill": [
+                "https://www.linkedin.com/company/github/"
+            ],
+            "minItems": 1,
+            "maxItems": 100
+        },
+        "maxJobsPerCompany": {
+            "title": "Maximum jobs per company",
+            "description": "Safety limit. A scan that reaches this limit before completeness can be proven is treated as incomplete and will never close missing jobs. Raise it only for unusually large inventories; up to 5,000 jobs are supported.",
+            "type": "integer",
+            "default": 1000,
+            "minimum": 25,
+            "maximum": 5000
+        },
+        "closureConfirmationScans": {
+            "title": "Closure confirmation scans",
+            "description": "Number of complete consecutive scans in which a job must be absent before it is marked closed.",
+            "type": "integer",
+            "default": 2,
+            "minimum": 1,
+            "maximum": 10
+        },
+        "emitInitialSnapshot": {
+            "title": "Emit first-seen jobs",
+            "description": "Emit existing jobs as new when a company is monitored for the first time.",
+            "type": "boolean",
+            "default": true
+        },
+        "emitCurrentSnapshot": {
+            "title": "Include current open jobs",
+            "description": "Also emit unchanged open jobs as current. Leave off for a changes-only feed; enable for full snapshots and health checks.",
+            "type": "boolean",
+            "default": false
+        },
+        "stateStoreName": {
+            "title": "State store name",
+            "description": "Named key-value store used to preserve job history between runs.",
+            "type": "string",
+            "default": "linkedin-hiring-signals-state",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?$",
+            "editor": "textfield"
+        },
+        "stateNamespace": {
+            "title": "Watchlist namespace",
+            "description": "Separates independent watchlists. \"auto\" isolates each saved Task automatically; API callers should set a stable unique value per watchlist.",
+            "type": "string",
+            "default": "auto",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+            "editor": "textfield"
+        },
+        "closedJobRetentionDays": {
+            "title": "Closed-job retention",
+            "description": "How long closed jobs remain in state so reopenings can be detected.",
+            "type": "integer",
+            "default": 90,
+            "minimum": 7,
+            "maximum": 730
+        },
+        "maxConcurrency": {
+            "title": "Maximum concurrency",
+            "description": "Number of companies scanned in parallel.",
+            "type": "integer",
+            "default": 3,
+            "minimum": 1,
+            "maximum": 20
+        },
+        "strictClosureQualityGate": {
+            "title": "Require 95% closure-safe coverage",
+            "description": "Fail the run when fewer than 95% of company inventories are fully complete. Partial output remains available, but incomplete scans never advance closure state.",
+            "type": "boolean",
+            "default": false,
+            "sectionCaption": "Quality gate"
+        },
+        "verifyApplyLinks": {
+            "title": "Verify official apply links",
+            "description": "Enrich new, changed, and reopened jobs with official apply URLs, status, confidence, and ghost-job risk. Results are merged into this Actor's main dataset.",
+            "type": "boolean",
+            "default": false,
+            "sectionCaption": "Official apply-link verification"
+        },
+        "strictVerificationQualityGate": {
+            "title": "Require 95% verification coverage",
+            "description": "When verification is enabled, fail safely if fewer than 95% of submitted jobs receive a verifier result. Failed verification never commits state, webhooks, or company-scan billing, so a retry can recover the same events.",
+            "type": "boolean",
+            "default": false
+        },
+        "verifierActorId": {
+            "title": "Apply Link Verifier Actor",
+            "description": "Actor ID or username/name used when premium verification is enabled.",
+            "type": "string",
+            "default": "kamerozkan/linkedin-job-apply-link-verifier",
+            "editor": "textfield"
+        },
+        "maxJobsToVerify": {
+            "title": "Maximum jobs to verify",
+            "description": "Cost guardrail for official apply-link verification in one run.",
+            "type": "integer",
+            "default": 500,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "verificationMaxTotalChargeUsd": {
+            "title": "Verification cost limit",
+            "description": "Maximum pay-per-event charge allowed for the child verification run. The default covers up to 500 results at the current $0.004 per verified job price.",
+            "type": "number",
+            "default": 2,
+            "minimum": 0.004,
+            "maximum": 100,
+            "unit": "USD"
+        },
+        "webhookUrl": {
+            "title": "Webhook URL",
+            "description": "Optional HTTPS endpoint that receives the enriched event rows after each run. Empty runs do not send a webhook.",
+            "type": "string",
+            "editor": "textfield",
+            "sectionCaption": "Automation and alerts"
+        },
+        "webhookSecret": {
+            "title": "Webhook signing secret",
+            "description": "Optional secret used to sign the exact request body with HMAC-SHA256 in the x-hiring-signals-signature header.",
+            "type": "string",
+            "editor": "textfield",
+            "isSecret": true
+        },
+        "webhookBatchSize": {
+            "title": "Webhook batch size",
+            "description": "Maximum event rows sent in each webhook request.",
+            "type": "integer",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "description": "Optional proxy. Each company scan keeps one stable proxy session and cookie jar for reliable pagination.",
+            "type": "object",
+            "editor": "proxy",
+            "sectionCaption": "Network",
+            "default": {
+                "useApifyProxy": true
+            }
+        }
+    },
+    "required": [
+        "companies"
+    ]
+}

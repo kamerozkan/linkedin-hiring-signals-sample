@@ -1,6 +1,6 @@
 {
   "name": "linkedin-hiring-signals-sample",
-  "version": "0.2.29",
+  "version": "0.2.37",
   "private": true,
   "description": "Validation for LinkedIn Hiring Signals public inputs and output samples.",
   "type": "module",

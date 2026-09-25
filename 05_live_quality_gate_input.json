@@ -1,0 +1,16 @@
+{
+  "companies": [
+    "https://www.linkedin.com/company/github/"
+  ],
+  "maxJobsPerCompany": 25,
+  "closureConfirmationScans": 2,
+  "emitInitialSnapshot": true,
+  "emitCurrentSnapshot": false,
+  "strictClosureQualityGate": true,
+  "stateStoreName": "hiring-repair-audit-20260925",
+  "stateNamespace": "quality-gate-fixed",
+  "proxyConfiguration": {
+    "useApifyProxy": true
+  },
+  "verifyApplyLinks": false
+}
