@@ -138,3 +138,7 @@ Do not enrich these samples with personal data unless you have an independent la
 Users are responsible for reviewing applicable law, platform terms, retention rules, and downstream use requirements.
 
 September 25, 2026 repair evidence uses owner-run tests of public company job pages. No customer run data is included. Partial samples are explicitly labeled and do not represent a complete company inventory or evidence that unobserved jobs are closed.
+
+## Listing update on September 30, 2026
+
+The Store title, description and search metadata were checked against the owned Actor and synchronized with this repository. This documentation update does not alter executable code, input or output schemas, recorded test outputs, artifact hashes, billing or runtime builds. Existing examples retain their original dates and validation limits. A public listing is not evidence of successful output, network acceptance or an achieved search ranking.

@@ -1,6 +1,10 @@
 > **Live Actor:** [Run LinkedIn Company Jobs Monitor & Change Feed on Apify](https://apify.com/kamerozkan/linkedin-hiring-signals)
 
-# LinkedIn Company Jobs Monitor & Change Feed: Samples
+# LinkedIn Company Jobs Scraper - Hiring Signals: Samples
+
+LinkedIn company jobs scraper and monitor. Track hiring signals from public company job pages as a change feed: new, changed, reopened, and safely confirmed closed roles. No login or cookies. Apply URLs, live status, ghost-job risk. For ATS, RPO, recruiting, and sales intelligence.
+
+[Run LinkedIn Company Jobs Scraper - Hiring Signals on Apify](https://apify.com/kamerozkan/linkedin-hiring-signals)
 
 [![Apify Actor](https://img.shields.io/badge/Apify-Run%20Actor-00c7b7?logo=apify)](https://apify.com/kamerozkan/linkedin-hiring-signals)
 ![Release](https://img.shields.io/badge/release-0.2.29-2f855a)

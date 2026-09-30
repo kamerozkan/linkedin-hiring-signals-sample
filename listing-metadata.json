@@ -1,0 +1,15 @@
+{
+  "id": "ujkEG4gpQNbpYOQcc",
+  "name": "linkedin-hiring-signals",
+  "title": "LinkedIn Company Jobs Scraper - Hiring Signals",
+  "description": "LinkedIn company jobs scraper and monitor. Track hiring signals from public company job pages as a change feed: new, changed, reopened, and safely confirmed closed roles. No login or cookies. Apply URLs, live status, ghost-job risk. For ATS, RPO, recruiting, and sales intelligence.",
+  "seoTitle": "LinkedIn Company Jobs Scraper & Hiring Signals",
+  "seoDescription": "Monitor public LinkedIn company jobs without login. Track new, changed and reopened roles, plus closures confirmed by complete scans, with quality status.",
+  "isPublic": true,
+  "url": "https://apify.com/kamerozkan/linkedin-hiring-signals",
+  "checkedAt": "2026-09-30",
+  "changeScope": "listing metadata and sample documentation only",
+  "runtimeChanged": false,
+  "schemasChanged": false,
+  "examplesRegenerated": false
+}
