@@ -8,7 +8,7 @@
   "isPublic": true,
   "url": "https://apify.com/kamerozkan/linkedin-hiring-signals",
   "checkedAt": "2026-09-30",
-  "changeScope": "New offline research-quality handoff, synthetic fixture and behavioral tests; listing fields retain September 30 observations",
+  "changeScope": "Offline research-quality handoff plus private completed-run GET exporter; listing fields retain September 30 observations",
   "runtimeChanged": false,
   "schemasChanged": false,
   "examplesRegenerated": false,
@@ -28,5 +28,28 @@
     "helperSha256": "e7deb224922f63dd382699b40c33fa7f2e5b14daa1edda2b3f6cd4eee63c21be"
   },
   "sampleUpdatedOn": "2026-10-02",
-  "syntheticFixtureAdded": true
+  "syntheticFixtureAdded": true,
+  "completedRunExporter": {
+    "addedOn": "2026-10-02",
+    "helper": "export_completed_run.py",
+    "tests": "test_export_completed_run.py",
+    "mode": "private completed Hiring run retrieval",
+    "requestMethod": "GET",
+    "apiOrigin": "https://api.apify.com",
+    "startsActor": false,
+    "publishesExternally": false,
+    "originAttested": false,
+    "actorRuntimeChanged": false,
+    "actorPricingChanged": false,
+    "actualCustomerOutcomeVerified": false,
+    "rawExportMarker": "EXPORT_READY"
+  },
+  "completedExportEvidence": "completed-export-verification-2026-10-02.json",
+  "completedExportLiveOwnerAcceptance": {
+    "runId": "4SVdaWflYhzP9NvTH",
+    "datasetRows": 708,
+    "datasetPages": 3,
+    "newActorRuns": 0,
+    "customerAdoptionObserved": false
+  }
 }

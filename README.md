@@ -35,12 +35,33 @@ python3 quality_handoff.py \
 
 Expected classification: two research-ready fixture rows and two held diagnostics. The explicit replay clock does not check current availability. [Synthetic notice and expected counts](examples/quality-handoff-synthetic/NOTICE.md).
 
-For your own already completed run, export its actual run metadata, key-value-store `OUTPUT` and complete dataset JSON array to a private directory. Then use:
+## Export your completed run without three manual downloads
+
+The [completed-run exporter](export_completed_run.py) retrieves actual run metadata, its key-value-store `OUTPUT` and the full paginated dataset in one command. It sends authenticated GET requests only to `https://api.apify.com`; it never starts an Actor or changes a cloud resource. Supply an existing completed Hiring Signals run ID, not a Task ID:
 
 ```bash
-python3 quality_handoff.py --run private-exports/run.json \
-  --output private-exports/OUTPUT.json --rows private-exports/rows.json \
-  --out .handoffs/your-completed-run
+RUN_ID=YOUR_COMPLETED_RUN_ID
+python3 export_completed_run.py --run-id "$RUN_ID" \
+  --out "$HOME/.apify/exports/hiring"
+```
+
+Authentication uses `APIFY_TOKEN` from your environment or your existing `~/.apify/token` file. Tokens are never put in request URLs, saved files or printed commands. Keep credentials and exports private. The exporter rejects output paths inside a Git working tree, symlink paths and existing run directories; use a new private base for a repeat export. It needs Python 3.9+ on macOS or Linux with POSIX deadlines and atomic no-overwrite rename support, and must run on the main thread.
+
+The private `--out/RUN_ID` directory contains `run.json`, `OUTPUT.json`, `rows.json`, `export-manifest.json` and `EXPORT_READY`. Run metadata retains only identity, build, timestamps, storage IDs and available charged/accounted event counts; it does not copy Actor inputs, options, logs or environment variables. Original OUTPUT and dataset rows remain private source data.
+
+The exporter refuses active runs, wrong Actor/storage identities, malformed responses, missing pagination evidence, inconsistent OUTPUT/dataset counts, truncated pages and snapshots that change during retrieval. It checks all pagination offset/limit/count/total headers, a final empty page and metadata/OUTPUT before and after retrieval. The defaults are 100,000 rows, 1,000 rows per page, 50 MiB per saved JSON artifact, a 20-second GET deadline and a 120-second total retrieval budget. Lower the row bound with `--max-rows`, or use `--page-size 300` to split a smaller export into multiple requests. A count mismatch can reflect incomplete or lagging storage; the command stops and you can retry that same completed run later. It performs no automatic retry or paid Actor execution. API retrieval may use your Apify API/storage quota.
+
+Only a complete raw export receives `EXPORT_READY`, committed as one private directory. This marker is separate from the handoff's `DONE` and `HANDOFF_READY`: it does not judge company completeness, freshness or application availability. The command prints a `quality_handoff.py` command using the exported paths. Run it and inspect the classification before downstream use. Hashes detect later file changes; they do not authenticate arbitrary files as cloud originals or detect every concurrent dataset edit with unchanged counts and metadata. No schedule or external delivery is installed.
+
+Dated GET-only acceptance on 2 October: the existing owner run `4SVdaWflYhzP9NvTH` exported all 708 rows across three 300-row-bounded pages, with a verified empty tail and unchanged metadata/OUTPUT. The existing offline handoff retained 631 research rows and held 77 diagnostics. This reused completed source data; no new Actor run, customer use or revenue was created. 29 authored synthetic tests and 11 independent probes passed. [Export acceptance and limits](completed-export-verification-2026-10-02.json).
+
+If you already have the three actual files from another complete export, the offline consumer remains available:
+
+```bash
+python3 quality_handoff.py --run "$HOME/.apify/exports/hiring/$RUN_ID/run.json" \
+  --output "$HOME/.apify/exports/hiring/$RUN_ID/OUTPUT.json" \
+  --rows "$HOME/.apify/exports/hiring/$RUN_ID/rows.json" \
+  --out "$HOME/.apify/exports/hiring/$RUN_ID-handoff"
 ```
 
 Inspect `summary.json`, `ready.json`/`.csv` and `held.json`/`.csv`. Consume only directories with `DONE`; `HANDOFF_READY` is present only when there are research-ready rows. It means complete-scanned lifecycle research, not permission to publish a job advertisement or proof of an application route. Keep original rows and held queues private. Existing `safeToPublish` or verification fields remain source observations; this helper does not reverify them.
