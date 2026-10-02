@@ -142,3 +142,7 @@ September 25, 2026 repair evidence uses owner-run tests of public company job pa
 ## Listing update on September 30, 2026
 
 The Store title, description and search metadata were checked against the owned Actor and synchronized with this repository. This documentation update does not alter executable code, input or output schemas, recorded test outputs, artifact hashes, billing or runtime builds. Existing examples retain their original dates and validation limits. A public listing is not evidence of successful output, network acceptance or an achieved search ranking.
+
+## Offline quality handoff on October 2, 2026
+
+The new local helper filters exported research events using `OUTPUT.scans` quality and completeness. The bundled four-row fixture is entirely synthetic and never fetched. `quality-handoff-verification-2026-10-02.json` separately records aggregate counts and hashes from an existing October 2 owner run; its full watchlist, source rows, private inputs and local research queues are not published. Neither example establishes outside-customer usage or revenue. Research-ready does not mean verified current application availability. Actor runtime, schemas, pricing and cloud build are unchanged; no new cloud run or external delivery was started. Earlier public examples and verification dates are retained.

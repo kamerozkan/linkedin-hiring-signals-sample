@@ -1,0 +1,24 @@
+{
+  "status": "SUCCEEDED_WITH_WARNINGS",
+  "qualityError": null,
+  "generatedAt": "2026-10-02T05:00:59Z",
+  "companiesRequested": 2,
+  "companiesScanned": 2,
+  "completeScans": 1,
+  "incompleteScans": 1,
+  "eventsEmitted": 4,
+  "scans": [
+    {
+      "companyId": "101",
+      "complete": true,
+      "usable": true,
+      "stopReason": "expected_count_reached"
+    },
+    {
+      "companyId": "202",
+      "complete": false,
+      "usable": false,
+      "stopReason": "source_pagination_limit"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-02",
+  "mode": "OFFLINE_EXISTING_OWNER_RUN_REPLAY",
+  "helperSha256": "e7deb224922f63dd382699b40c33fa7f2e5b14daa1edda2b3f6cd4eee63c21be",
+  "localTests": 39,
+  "syntheticDemo": {
+    "fixtureRows": 4,
+    "readyResearchRows": 2,
+    "heldRows": 2,
+    "evaluationTime": "2026-10-02T07:00:00Z",
+    "realSourceOrCustomerEvidence": false
+  },
+  "actualSourceReplay": {
+    "runId": "4SVdaWflYhzP9NvTH",
+    "buildId": "OHA8RiqQ9brwK7EX7",
+    "buildNumber": "0.2.37",
+    "runStartedAt": "2026-10-02T05:00:12.294Z",
+    "runFinishedAt": "2026-10-02T05:06:57.974Z",
+    "sourceGeneratedAt": "2026-10-02T05:06:57.568Z",
+    "evaluatedAt": "2026-10-02T07:53:54.501869+00:00",
+    "ownerRun": true,
+    "datasetRows": 708,
+    "outputEventsEmitted": 708,
+    "readyResearchRows": 631,
+    "heldRows": 77,
+    "sourceClosedEvents": 142,
+    "readyClosedEvents": 142,
+    "heldClosedEvents": 0,
+    "readyEventCounts": {
+      "changed": 332,
+      "closed": 142,
+      "new": 144,
+      "reopened": 13
+    },
+    "heldReasonCounts": {
+      "INCOMPLETE_OR_UNUSABLE_SCAN": 77,
+      "INCOMPLETE_STOP_REASON": 77
+    },
+    "inputHashes": {
+      "output": "20ce3aeac7b5ef89933c9fdaf393f18c9418164db0ef156591e405cfc2fb8194",
+      "rows": "bfc9158156c6109d750a252d029ec1d598be70de0b41908f41ee82cae9be3e27",
+      "run": "135e396d7ecb73a47b5ab379c7a978fd150048b912db48e2172d35f04719139c"
+    },
+    "privateSourceRowsPublished": false,
+    "newRunStarted": false,
+    "externalCustomerUseOrRevenue": false,
+    "runLevelReasons": [],
+    "companyScansWithQualityIssues": 1,
+    "evaluationTimeMode": "EXPLICIT",
+    "sameImmutableSourceHashesVerified": true
+  },
+  "startsActor": false,
+  "changesActorRuntimeSchemaOrPrice": false,
+  "publishesExternally": false,
+  "truthBoundary": "Offline file checks and complete-company coverage do not attest input origin or verify current application availability. This is a dated owner replay, not a new scrape or a customer run.",
+  "targetedReviewFixes": [
+    "CSV_C0_BOM_FORMULA_PREFIX",
+    "TIMESTAMP_OVERFLOW_CONTROLLED",
+    "CURRENT_CLOCK_IDEMPOTENT_FRESH_RETRY",
+    "EMPTY_FAILED_STALE_OR_INVALID_STATUS",
+    "SYMLINK_ARTIFACT_AND_DESTINATION_REJECTION"
+  ],
+  "recheckedAt": "2026-10-02T08:14:26.321839+00:00"
+}

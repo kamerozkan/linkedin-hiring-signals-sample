@@ -8,8 +8,25 @@
   "isPublic": true,
   "url": "https://apify.com/kamerozkan/linkedin-hiring-signals",
   "checkedAt": "2026-09-30",
-  "changeScope": "listing metadata and sample documentation only",
+  "changeScope": "New offline research-quality handoff, synthetic fixture and behavioral tests; listing fields retain September 30 observations",
   "runtimeChanged": false,
   "schemasChanged": false,
-  "examplesRegenerated": false
+  "examplesRegenerated": false,
+  "qualityHandoff": {
+    "addedOn": "2026-10-02",
+    "helper": "quality_handoff.py",
+    "evidence": "quality-handoff-verification-2026-10-02.json",
+    "mode": "offline complete-company research handoff",
+    "observedLatestBuild": "0.2.37",
+    "startsActor": false,
+    "publishesExternally": false,
+    "actorRuntimeChanged": false,
+    "actorPricingChanged": false,
+    "applicationAvailabilityVerified": false,
+    "actualCustomerOutcomeVerified": false,
+    "localTestsPassed": 39,
+    "helperSha256": "e7deb224922f63dd382699b40c33fa7f2e5b14daa1edda2b3f6cd4eee63c21be"
+  },
+  "sampleUpdatedOn": "2026-10-02",
+  "syntheticFixtureAdded": true
 }

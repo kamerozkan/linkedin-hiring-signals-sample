@@ -7,8 +7,8 @@ LinkedIn company jobs scraper and monitor. Track hiring signals from public comp
 [Run LinkedIn Company Jobs Scraper - Hiring Signals on Apify](https://apify.com/kamerozkan/linkedin-hiring-signals)
 
 [![Apify Actor](https://img.shields.io/badge/Apify-Run%20Actor-00c7b7?logo=apify)](https://apify.com/kamerozkan/linkedin-hiring-signals)
-![Release](https://img.shields.io/badge/release-0.2.29-2f855a)
-![Release QA](https://img.shields.io/badge/0.2.29%20exact--build%20QA-2%2F2%20succeeded-2f855a)
+![Observed latest build](https://img.shields.io/badge/observed%20latest-0.2.37-2f855a)
+![Offline consumer](https://img.shields.io/badge/consumer-offline%20quality%20handoff-2f855a)
 ![Schema](https://img.shields.io/badge/schema-JSON%20Schema%202020--12-4c1)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
@@ -17,6 +17,37 @@ Monitor public LinkedIn company job pages and receive typed change-feed records 
 This repository contains three copy-ready inputs, privacy-minimized output examples, and the dataset contract in [`dataset_record.schema.json`](dataset_record.schema.json).
 
 The product is a company and job-posting monitor, not a people-search or candidate-sourcing tool. It is designed for repeat employer watchlists where a dated change feed is more useful than repeatedly checking the same public job pages by hand.
+
+## Filter incomplete company observations before downstream use
+
+Dataset-only consumers must also read `OUTPUT.scans`. A platform-successful run can include diagnostic changes from an incomplete company scan. The local [quality_handoff.py](quality_handoff.py) joins each row to that company's `complete`, `usable`, `qualityFailed` and stop-reason markers. It separates complete-scan research events from observations requiring review. It creates no new closures and never starts an Actor, fetches a URL or publishes externally.
+
+Try the wholly invented, tokens-free fixture:
+
+```bash
+python3 quality_handoff.py \
+  --run examples/quality-handoff-synthetic/run.json \
+  --output examples/quality-handoff-synthetic/OUTPUT.json \
+  --rows examples/quality-handoff-synthetic/rows.json \
+  --out .handoffs/synthetic-demo \
+  --as-of 2026-10-02T07:00:00Z
+```
+
+Expected classification: two research-ready fixture rows and two held diagnostics. The explicit replay clock does not check current availability. [Synthetic notice and expected counts](examples/quality-handoff-synthetic/NOTICE.md).
+
+For your own already completed run, export its actual run metadata, key-value-store `OUTPUT` and complete dataset JSON array to a private directory. Then use:
+
+```bash
+python3 quality_handoff.py --run private-exports/run.json \
+  --output private-exports/OUTPUT.json --rows private-exports/rows.json \
+  --out .handoffs/your-completed-run
+```
+
+Inspect `summary.json`, `ready.json`/`.csv` and `held.json`/`.csv`. Consume only directories with `DONE`; `HANDOFF_READY` is present only when there are research-ready rows. It means complete-scanned lifecycle research, not permission to publish a job advertisement or proof of an application route. Keep original rows and held queues private. Existing `safeToPublish` or verification fields remain source observations; this helper does not reverify them.
+
+Default maximum snapshot age is 24 hours. Older snapshots, partial or unusable scans, unknown or duplicate identities, unsafe quality markers and failed/global-quality-gate runs remain held. Missing or conflicting run times and OUTPUT/dataset counts stop processing. Local file hashes support integrity checking but do not authenticate arbitrary files as a cloud export. There is no webhook, schedule, CRM or job-board delivery configured by this helper.
+
+On October 2, an existing owner run on observed latest build `0.2.37` returned `SUCCEEDED_WITH_WARNINGS`: 23 complete company scans and one incomplete scan. Replaying its 708 emitted rows locally retained 631 research records and held 77 partial-company diagnostics. All 142 source closure events belonged to complete scans and were retained; none were created. Company-scan events matched 23 completed scans, while owner accounted event counts were zero. This is source-quality and accounting evidence for that owner run, not paid customer output or revenue. [Dated source replay and local verification](quality-handoff-verification-2026-10-02.json). Historical build evidence elsewhere retains its original dates. All **39 behavioral tests** passed, including independent review fixes for failed or stale empty snapshots, timestamp overflow, CSV formula prefixes, identical fresh retries and symlink artifacts. The CSV guard is an export precaution, not a guarantee for every spreadsheet importer.
 
 ## Recommended quick start
 

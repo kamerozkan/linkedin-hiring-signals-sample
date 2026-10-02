@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0",
+  "runId": "synthetic-quality-run",
+  "buildNumber": "synthetic",
+  "platformStatus": "SUCCEEDED",
+  "applicationStatus": "SUCCEEDED_WITH_WARNINGS",
+  "sourceGeneratedAt": "2026-10-02T05:00:59Z",
+  "evaluatedAt": "2026-10-02T07:00:00+00:00",
+  "evaluationTimeMode": "EXPLICIT",
+  "maxAgeHours": 24,
+  "sourceRows": 4,
+  "runLevelReasons": [],
+  "qualityError": null,
+  "companyScans": 2,
+  "companyScansWithQualityIssues": 1,
+  "emptySnapshotReasons": [],
+  "readyRows": 2,
+  "heldRows": 2,
+  "readyEventCounts": {
+    "new": 1,
+    "closed": 1
+  },
+  "heldReasonCounts": {
+    "INCOMPLETE_OR_UNUSABLE_SCAN": 1,
+    "INCOMPLETE_STOP_REASON": 1,
+    "UNKNOWN_COMPANY_SCAN": 1
+  },
+  "status": "READY_FOR_RESEARCH",
+  "inputHashes": {
+    "run": "07a49f87332b0a5e3f11343149db632aa18b710d14dee26ce97f53904155a015",
+    "output": "5aeec1070a82e8654c008c9088fbce529fb5a85826d4c6b2ae4f125a92fe0156",
+    "rows": "8815b4f61ed81b41dcadc9d15cf63825049aa128e9e51e3c5489e9172b76524c"
+  },
+  "startsActor": false,
+  "publishesExternally": false,
+  "paidCustomerUseOrRevenueProven": false,
+  "applicationRoutesVerifiedByHandoff": false,
+  "originAttested": false,
+  "truthBoundary": "Complete-scanned source events for research; not verified application availability. Offline file checks do not attest API origin. Held observations remain diagnostics."
+}

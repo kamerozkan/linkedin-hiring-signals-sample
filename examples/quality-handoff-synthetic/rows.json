@@ -1,0 +1,54 @@
+[
+  {
+    "companyId": "101",
+    "companyName": "Synthetic company",
+    "jobId": "1001",
+    "title": "=SUM(1,2)",
+    "eventType": "new",
+    "detectedAt": "2026-10-02T05:00:30Z",
+    "source": "linkedin_public_jobs",
+    "verificationStatus": "not_requested",
+    "safeToPublish": null,
+    "reviewRequired": null,
+    "jobUrl": "https://example.invalid/jobs/1001"
+  },
+  {
+    "companyId": "101",
+    "companyName": "Synthetic company",
+    "jobId": "1002",
+    "title": "Synthetic role",
+    "eventType": "closed",
+    "detectedAt": "2026-10-02T05:00:30Z",
+    "source": "linkedin_public_jobs",
+    "verificationStatus": "not_requested",
+    "safeToPublish": null,
+    "reviewRequired": null,
+    "jobUrl": "https://example.invalid/jobs/1002"
+  },
+  {
+    "companyId": "202",
+    "companyName": "Synthetic company",
+    "jobId": "2001",
+    "title": "Synthetic role",
+    "eventType": "changed",
+    "detectedAt": "2026-10-02T05:00:30Z",
+    "source": "linkedin_public_jobs",
+    "verificationStatus": "not_requested",
+    "safeToPublish": null,
+    "reviewRequired": null,
+    "jobUrl": "https://example.invalid/jobs/2001"
+  },
+  {
+    "companyId": "303",
+    "companyName": "Synthetic company",
+    "jobId": "3001",
+    "title": "=SUM(1,2)",
+    "eventType": "new",
+    "detectedAt": "2026-10-02T05:00:30Z",
+    "source": "linkedin_public_jobs",
+    "verificationStatus": "not_requested",
+    "safeToPublish": null,
+    "reviewRequired": null,
+    "jobUrl": "https://example.invalid/jobs/3001"
+  }
+]
