@@ -27,7 +27,7 @@
     "localTestsPassed": 39,
     "helperSha256": "e7deb224922f63dd382699b40c33fa7f2e5b14daa1edda2b3f6cd4eee63c21be"
   },
-  "sampleUpdatedOn": "2026-10-02",
+  "sampleUpdatedOn": "2026-10-04",
   "syntheticFixtureAdded": true,
   "completedRunExporter": {
     "addedOn": "2026-10-02",
@@ -51,5 +51,39 @@
     "datasetPages": 3,
     "newActorRuns": 0,
     "customerAdoptionObserved": false
+  },
+  "completedExportHandoff": {
+    "addedOn": "2026-10-04",
+    "helper": "export_completed_run.py",
+    "flag": "--handoff",
+    "tests": "test_export_handoff.py",
+    "evidence": "export-handoff-verification-2026-10-04.json",
+    "mode": "opt-in completed-run retrieval plus current-clock private research handoff",
+    "defaultExporterBehaviorChanged": false,
+    "qualityHelperChanged": false,
+    "requestMethod": "GET",
+    "startsActor": false,
+    "publishesExternally": false,
+    "actorRuntimeChanged": false,
+    "actorPricingChanged": false,
+    "applicationAvailabilityVerified": false,
+    "actualCustomerOutcomeVerified": false,
+    "localOrchestrationTestsPassed": 13,
+    "rawExportMarker": "EXPORT_READY",
+    "handoffArtifactMarker": "DONE",
+    "researchRowsMarker": "HANDOFF_READY",
+    "heldOnlyExitStatus": 3,
+    "localHandoffFailureExitStatus": 2,
+    "liveOwnerAcceptanceObserved": true,
+    "independentReviewGroupsPassed": 14,
+    "liveOwnerAcceptance": {
+      "sourceBuildNumber": "0.2.37",
+      "rowsExported": 415,
+      "researchRows": 392,
+      "heldRows": 23,
+      "datasetPages": 3,
+      "actorRunsStarted": 0,
+      "customerAdoptionObserved": false
+    }
   }
 }

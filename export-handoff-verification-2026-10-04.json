@@ -1,0 +1,142 @@
+{
+  "checkedOn": "2026-10-04",
+  "change": "Opt-in --handoff orchestration for one completed Hiring Signals run",
+  "scope": "Local sample helper and documentation only",
+  "authorValidation": {
+    "mode": "offline synthetic orchestration",
+    "testsPassed": 13,
+    "command": "python3 -m unittest -v test_export_handoff.py",
+    "pythonVersion": "3.9.6",
+    "realApiRequests": 0,
+    "actorRunsStarted": 0,
+    "cloudBuilds": 0,
+    "checks": [
+      "Default exporter stdout and two-command behavior unchanged",
+      "Existing raw/handoff directories and dangling symlinks stop before authentication",
+      "Current-clock fresh research classification and private 700/600 exclusive commits",
+      "Stale and failed-quality held-only diagnostics return exit 3",
+      "Fresh valid empty snapshot returns exit 0; stale empty returns exit 3",
+      "Changed source hashes and invalid completion markers stop before classification",
+      "Malformed quality input and source symlinks fail without a new handoff",
+      "Missing, extra or symlink render artifacts cannot be committed",
+      "Reflected credential bytes in paths or artifacts cannot be committed",
+      "Renderer or commit failure uses fixed scrubbed output and preserves raw export",
+      "Concurrent empty handoff target is preserved by exclusive native commit"
+    ]
+  },
+  "qualityHelper": {
+    "path": "quality_handoff.py",
+    "sha256": "e7deb224922f63dd382699b40c33fa7f2e5b14daa1edda2b3f6cd4eee63c21be",
+    "unchangedFromPreviousCommit": true
+  },
+  "files": {
+    "export_completed_run.py": {
+      "sha256": "747d4553cae59751c44c1607c55a1238d77a53adbc86f730dd218654ff0c99d2",
+      "bytes": 26668
+    },
+    "test_export_handoff.py": {
+      "sha256": "9d583c3f71687ba755740454a67e5406a3f773307677069b3b6dc42901e488ca",
+      "bytes": 14168
+    },
+    "README.md": {
+      "sha256": "73b37a6d01205871f602d310a31c8f277719d06eccc64331b2d7eb7e524156bf",
+      "bytes": 30759
+    },
+    "DATA_NOTICE.md": {
+      "sha256": "468289f2db80356df0b9868b5bc4ef7cc7b6357a16baf7848f8e1b510a830412",
+      "bytes": 13161
+    },
+    "listing-metadata.json": {
+      "sha256": "02423a3dfe1a24b44c22da25555c373ff51a305f4b590e7afbeb2c41253c219f",
+      "bytes": 3647
+    }
+  },
+  "independentReview": {
+    "status": "PASS",
+    "groupsPassed": 14,
+    "realApiRequests": 0,
+    "actorRunsStarted": 0,
+    "sourceSha256": "747d4553cae59751c44c1607c55a1238d77a53adbc86f730dd218654ff0c99d2",
+    "platform": "macOS"
+  },
+  "liveOwnerAcceptance": {
+    "observedAtUtc": "2026-10-04T10:27:56.214247+00:00",
+    "sourceRunOwner": true,
+    "sourceBuildNumber": "0.2.37",
+    "sourceRunFinishedAt": "2026-10-04T05:06:26.261Z",
+    "cliExitStatus": 0,
+    "status": "READY_FOR_RESEARCH",
+    "rowsExported": 415,
+    "datasetPages": 3,
+    "emptyTailConfirmed": true,
+    "stableMetadataAndOutput": true,
+    "researchRows": 392,
+    "heldRows": 23,
+    "evaluationTimeMode": "CURRENT_CLOCK",
+    "readyEventCounts": {
+      "changed": 257,
+      "closed": 126,
+      "new": 9
+    },
+    "heldReasonCounts": {
+      "INCOMPLETE_OR_UNUSABLE_SCAN": 23,
+      "INCOMPLETE_STOP_REASON": 23
+    },
+    "privateDirectoryMode": "0700",
+    "privateFileMode": "0600",
+    "allModesVerified": true,
+    "rawFilesKeptOutsideGit": true,
+    "actorRunsStarted": 0,
+    "cloudBuilds": 0,
+    "newSourceCollection": false,
+    "customerAdoptionObserved": false,
+    "newRevenueProven": false,
+    "applicationRoutesVerifiedByHandoff": false,
+    "originalSourceDatesPreserved": true,
+    "sourceRowsUnchangedExceptHandoffAnnotation": true,
+    "sourceClosedRows": 126,
+    "newClosureEventsCreated": 0,
+    "outputApplicationStatus": "SUCCEEDED_WITH_WARNINGS",
+    "companyScans": 24,
+    "companyScansWithQualityIssues": 1,
+    "stdoutIncludedPrivateRows": false,
+    "compatibilityAcceptance": "PASS",
+    "sourceDataPublished": false,
+    "requestMethods": [
+      "GET"
+    ]
+  },
+  "contract": {
+    "defaultExporterBehaviorChanged": false,
+    "rawExportMarker": "EXPORT_READY",
+    "handoffCompleteMarker": "DONE",
+    "readyResearchMarker": "HANDOFF_READY",
+    "freshnessClock": "current UTC clock",
+    "defaultMaxAgeHours": 24,
+    "destinations": "Separate new private raw RUN_ID and sibling RUN_ID-handoff directories",
+    "exitStatuses": {
+      "0": "Research-ready or fresh valid empty snapshot",
+      "1": "Raw export failure",
+      "2": "Handoff processing failure; complete raw export retained",
+      "3": "Held-only or held empty diagnostic handoff; complete raw export retained"
+    },
+    "noAutomaticRetry": true,
+    "noActorRestart": true,
+    "originAttested": false,
+    "applicationRoutesVerified": false,
+    "customerAdoptionObserved": false
+  },
+  "actorRuntimeChanged": false,
+  "actorSchemaChanged": false,
+  "actorPricingChanged": false,
+  "oldSourceSamplesChanged": false,
+  "previousDatedEvidenceChanged": false,
+  "limits": [
+    "Offline orchestration tests do not demonstrate live API compatibility or customer adoption.",
+    "Research-ready rows are complete-scan source observations, not current application-route checks or permission to publish.",
+    "Path guards require a controlled non-symlink parent outside Git; they do not secure an adversarially replaced ancestor.",
+    "Native exclusive commit and POSIX private modes were exercised on macOS; Linux was not independently executed here.",
+    "Raw export and handoff are separate commits. A failed handoff preserves a successful raw export.",
+    "File hashes support integrity but do not attest arbitrary files as cloud originals."
+  ]
+}

@@ -51,7 +51,25 @@ The private `--out/RUN_ID` directory contains `run.json`, `OUTPUT.json`, `rows.j
 
 The exporter refuses active runs, wrong Actor/storage identities, malformed responses, missing pagination evidence, inconsistent OUTPUT/dataset counts, truncated pages and snapshots that change during retrieval. It checks all pagination offset/limit/count/total headers, a final empty page and metadata/OUTPUT before and after retrieval. The defaults are 100,000 rows, 1,000 rows per page, 50 MiB per saved JSON artifact, a 20-second GET deadline and a 120-second total retrieval budget. Lower the row bound with `--max-rows`, or use `--page-size 300` to split a smaller export into multiple requests. A count mismatch can reflect incomplete or lagging storage; the command stops and you can retry that same completed run later. It performs no automatic retry or paid Actor execution. API retrieval may use your Apify API/storage quota.
 
-Only a complete raw export receives `EXPORT_READY`, committed as one private directory. This marker is separate from the handoff's `DONE` and `HANDOFF_READY`: it does not judge company completeness, freshness or application availability. The command prints a `quality_handoff.py` command using the exported paths. Run it and inspect the classification before downstream use. Hashes detect later file changes; they do not authenticate arbitrary files as cloud originals or detect every concurrent dataset edit with unchanged counts and metadata. No schedule or external delivery is installed.
+Only a complete raw export receives `EXPORT_READY`, committed as one private directory. This marker is separate from the handoff's `DONE` and `HANDOFF_READY`: it does not judge company completeness, freshness or application availability. By default, the command prints a `quality_handoff.py` command using the exported paths. Run it and inspect the classification before downstream use. Hashes detect later file changes; they do not authenticate arbitrary files as cloud originals or detect every concurrent dataset edit with unchanged counts and metadata. No schedule or external delivery is installed.
+
+### Retrieve and classify research CSV in one command
+
+Add the optional `--handoff` flag to retrieve an already completed run and apply the existing quality consumer immediately:
+
+```bash
+RUN_ID=YOUR_COMPLETED_RUN_ID
+python3 export_completed_run.py --run-id "$RUN_ID" \
+  --out "$HOME/.apify/exports/hiring" --handoff
+```
+
+This creates the raw export in `--out/RUN_ID` and the classified JSON/CSV in its sibling `--out/RUN_ID-handoff`. Both targets must be new directories outside Git with no symlink ancestors. The wrapper verifies the raw files against their export manifest, evaluates freshness with the actual current clock and the existing 24-hour default, and commits each directory without overwriting an existing target. On supported POSIX systems, final directories use mode `700` and files use `600`. The opt-in flag has no replay-clock option; default exporter behavior remains the separate two-command flow.
+
+The command prints only the private handoff path, status and aggregate row counts. `DONE` means diagnostic artifacts are complete. `HANDOFF_READY` appears only when there are complete-scan research rows; it does not verify current application routes or permission to publish advertisements. Inspect `summary.json` and the held queue before downstream use.
+
+Exit `0` means research rows were classified or a fresh, valid empty snapshot was confirmed. Exit `1` means the raw export failed. Exit `2` means local handoff processing failed after the complete raw export was saved; no new handoff directory is committed. Exit `3` means the saved handoff contains only held diagnostics, including stale or failed-quality snapshots. Raw files remain available after either handoff failure outcome. No new collection, automatic retry or Actor restart occurs. To recover from a local processing error, inspect the raw files and use the standalone `quality_handoff.py` command below with a new private destination. Reprocessing old files does not make their observations fresh.
+
+The October 4 opt-in implementation passed 13 focused synthetic orchestration tests and 14 independent review groups. A separate GET-only CLI acceptance reused an already completed October 4 owner run on build `0.2.37`: all 415 rows exported across three bounded pages, with 392 complete-scan research events and 23 incomplete-scan diagnostics held. Source rows and dates were retained; the 126 source closure events were preserved and none were created. Private `700`/`600` modes and both completion markers were checked. This confirms the one-command consumer flow for that owner snapshot; it did not start an Actor, collect fresh source data, verify application routes or establish customer adoption or revenue. [Opt-in verification and limits](export-handoff-verification-2026-10-04.json).
 
 Dated GET-only acceptance on 2 October: the existing owner run `4SVdaWflYhzP9NvTH` exported all 708 rows across three 300-row-bounded pages, with a verified empty tail and unchanged metadata/OUTPUT. The existing offline handoff retained 631 research rows and held 77 diagnostics. This reused completed source data; no new Actor run, customer use or revenue was created. 29 authored synthetic tests and 11 independent probes passed. [Export acceptance and limits](completed-export-verification-2026-10-02.json).
 
@@ -184,7 +202,7 @@ Two complete missing scans are required before a job closes by default. Increase
 
 ## Release 0.2.29 evidence
 
-The 2026-08-13 production build is `0.2.29`, build ID `a7hwqM4pB2CpzYZqK`. Both `latest` and `beta` point to this exact build. Its baseline and changes-only repeat completed 2 of 2 runs successfully:
+The production build recorded on 2026-08-13 was `0.2.29`, build ID `a7hwqM4pB2CpzYZqK`. At that dated check, both `latest` and `beta` pointed to this exact build. This is historical tag evidence, not a current beta observation. Its baseline and changes-only repeat completed 2 of 2 runs successfully:
 
 - baseline run `STSy1VqhGybgn6Q36` monitored the canonical GitHub company URL and wrote 77 unique, schema-valid `new` rows to dataset `ZiA2FzQfqfd9WOXpW`
 - changes-only repeat `3dDAac1Qf6hvws4tZ` scanned the same 77 jobs and emitted zero duplicate rows to dataset `o39RS4nZJyRltAqMc`

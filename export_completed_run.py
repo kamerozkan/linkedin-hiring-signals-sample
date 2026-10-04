@@ -410,6 +410,77 @@ def export_completed_run(api, run_id, out, *, max_rows=100000, page_size=1000):
     return commit_export(base, run_id, artifacts)
 
 
+def preflight_handoff(out, run_id):
+    identifier(run_id, 'Run ID')
+    base = checked_base(out)
+    for name in (run_id, run_id + '-handoff'):
+        target = base / name
+        if target.exists() or target.is_symlink():
+            raise ExportError('Export or handoff destination already exists; choose a new private base')
+    return base
+
+
+def handoff_from_export(destination, token):
+    """Classify frozen raw files, then exclusively commit private research artifacts."""
+    try:
+        import quality_handoff as quality
+    except ImportError:
+        raise ExportError('Quality handoff helper is unavailable') from None
+    try:
+        raw = checked_base(destination)
+        identifier(raw.name, 'Run ID')
+        base = checked_base(raw.parent)
+        target = base / (raw.name + '-handoff')
+        if target.exists() or target.is_symlink():
+            raise ExportError('Handoff destination already exists')
+        if not isinstance(token, str) or not token or token in str(target):
+            raise ExportError('Handoff path or credential is invalid')
+        credential = token.encode('utf-8')
+
+        def frozen_file(name):
+            file = raw / name
+            if file.is_symlink() or not file.is_file() or file.stat().st_size > MAX_BYTES:
+                raise ExportError('Raw export artifact is unavailable or unsafe')
+            data = file.read_bytes()
+            if len(data) > MAX_BYTES or credential in data:
+                raise ExportError('Raw export artifact exceeds limits or contains credential data')
+            return data
+
+        manifest = strict_json(frozen_file('export-manifest.json'))
+        if (not isinstance(manifest, dict) or manifest.get('runId') != raw.name
+                or manifest.get('actorId') != ACTOR_ID
+                or not isinstance(manifest.get('files'), dict)
+                or set(manifest['files']) != {'run.json', 'OUTPUT.json', 'rows.json'}
+                or frozen_file('EXPORT_READY') != b'Complete raw export only. Run quality_handoff.py before use.\n'):
+            raise ExportError('Raw export manifest or completion marker is invalid')
+        source = {}
+        for name in ('run.json', 'OUTPUT.json', 'rows.json'):
+            data = frozen_file(name)
+            expected = manifest['files'][name]
+            if (not isinstance(expected, dict) or type(expected.get('bytes')) is not int
+                    or expected['bytes'] != len(data) or expected.get('sha256') != sha256(data)):
+                raise ExportError('Raw export artifact no longer matches its manifest')
+            source[name] = strict_json(data)
+        # Do not use a replay clock: research freshness is evaluated now.
+        result = quality.classify(source['run.json'], source['OUTPUT.json'], source['rows.json'])
+        with tempfile.TemporaryDirectory(prefix='.' + raw.name + '-handoff-render-', dir=str(base)) as staging:
+            rendered = pathlib.Path(staging) / 'artifacts'
+            summary = quality.write_handoff(result, rendered)
+            expected_names = {'ready.json', 'held.json', 'ready.csv', 'held.csv', 'summary.json', 'DONE'}
+            if summary['readyRows']:
+                expected_names.add('HANDOFF_READY')
+            if (set(file.name for file in rendered.iterdir()) != expected_names
+                    or any(file.is_symlink() or not file.is_file() for file in rendered.iterdir())):
+                raise ExportError('Rendered handoff artifacts are incomplete or unsafe')
+            artifacts = {name: (rendered / name).read_bytes() for name in expected_names}
+            if any(len(data) > MAX_BYTES or credential in data for data in artifacts.values()):
+                raise ExportError('Rendered handoff exceeds limits or contains credential data')
+            handoff = commit_export(base, raw.name + '-handoff', artifacts)
+        return handoff, summary
+    except (quality.HandoffError, OSError, ValueError, TypeError, UnicodeError):
+        raise ExportError('Quality handoff could not be completed') from None
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--run-id', required=True, help='One already completed Hiring Actor run ID')
@@ -418,13 +489,29 @@ def main(argv=None):
     parser.add_argument('--page-size', type=int, default=1000)
     parser.add_argument('--timeout', type=float, default=20)
     parser.add_argument('--max-seconds', type=float, default=120)
+    parser.add_argument('--handoff', action='store_true', help='Also classify private research JSON/CSV with the current clock')
     args = parser.parse_args(argv)
     try:
+        if args.handoff:
+            preflight_handoff(args.out, args.run_id)
         api = ApifyGET(token_from_environment(), timeout=args.timeout, max_seconds=args.max_seconds)
         destination = export_completed_run(api, args.run_id, args.out, max_rows=args.max_rows, page_size=args.page_size)
     except ExportError as error:
         print('Export stopped: ' + str(error), file=sys.stderr)
         return 1
+    if args.handoff:
+        print('Complete private export saved. No Actor was started; no rows were published.')
+        try:
+            handoff, summary = handoff_from_export(destination, api.token)
+        except ExportError:
+            print('Quality handoff stopped; complete raw export is retained. No research readiness was claimed.', file=sys.stderr)
+            return 2
+        print(json.dumps({key: summary[key] for key in ['status', 'sourceRows', 'readyRows', 'heldRows']}, ensure_ascii=False))
+        print('Private handoff directory: ' + str(handoff))
+        if summary['status'] in {'HELD_ONLY', 'EMPTY_HELD_SNAPSHOT'}:
+            print('Quality handoff contains only held diagnostics; inspect its private summary before reuse.', file=sys.stderr)
+            return 3
+        return 0
     handoff = destination.parent / (args.run_id + '-handoff')
     command = ['python3', str(pathlib.Path(__file__).absolute().with_name('quality_handoff.py')),
                '--run', str(destination / 'run.json'), '--output', str(destination / 'OUTPUT.json'),
