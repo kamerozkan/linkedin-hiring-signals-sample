@@ -18,6 +18,16 @@ This repository contains three copy-ready inputs, privacy-minimized output examp
 
 The product is a company and job-posting monitor, not a people-search or candidate-sourcing tool. It is designed for repeat employer watchlists where a dated change feed is more useful than repeatedly checking the same public job pages by hand.
 
+## Current billing checked on October 6, 2026
+
+Completed company scans cost $0.012 on Free, $0.0108 on Bronze, $0.0096 on Silver and $0.0084 on Gold, Platinum or Diamond. Dataset events cost $0.00001 each, and startup costs $0.00005 per GB with a minimum of one event. Optional child verification is priced by the Verifier Actor: the checked Free rate is $0.005 per chargeable decision, so the unchanged $2 default budget covers at most 400 chargeable decisions, rather than all 500 permitted jobs. AMBIGUOUS verifier rows have no verified-job event. Use live Pricing for your plan. Historical samples retain their original dates; this documentation check is not a new scrape or evidence of customer satisfaction.
+
+See [`pricing-verification-2026-10-06.json`](pricing-verification-2026-10-06.json) for the saved event configuration and scope.
+
+## October 6, 2026 publication
+
+The owner release check confirmed public `latest` build `0.2.39` (`d3eh3djvmIog0fdNm`), its complete frozen source hashes and unchanged protected Actor settings. This publication did not run a new scrape. Older snapshots and sample outputs below retain their original dates; they are not evidence of current source availability, customer payment or satisfaction.
+
 ## Filter incomplete company observations before downstream use
 
 Dataset-only consumers must also read `OUTPUT.scans`. A platform-successful run can include diagnostic changes from an incomplete company scan. The local [quality_handoff.py](quality_handoff.py) joins each row to that company's `complete`, `usable`, `qualityFailed` and stop-reason markers. It separates complete-scan research events from observations requiring review. It creates no new closures and never starts an Actor, fetches a URL or publishes externally.
@@ -233,12 +243,12 @@ Apify's historical public 30-day success percentage includes older external runs
 
 The Actor uses pay-per-event pricing. Current completed company-scan prices are:
 
-- Free: $0.005 per company scan
-- Bronze: $0.0045 per company scan
-- Silver: $0.004 per company scan
-- Gold and above: $0.0035 per company scan
+- Free: $0.012 per completed company scan
+- Bronze: $0.0108 per completed company scan
+- Silver: $0.0096 per completed company scan
+- Gold and above: $0.0084 per completed company scan
 - Dataset row: $0.00001
-- Actor start: $0.00005
+- Actor start: $0.00005 per GB of allocated memory, minimum one event
 
 Incomplete company scans are not charged as completed company scans. Platform usage for this Actor is included in its event pricing. Optional apply-link verification is billed separately at the price shown on the [verifier Store page](https://apify.com/kamerozkan/linkedin-job-apply-link-verifier).
 
@@ -246,9 +256,9 @@ Approximate monthly monitoring costs at the Free-tier company-scan price, using 
 
 | Schedule | Completed company scans | Company-scan cost |
 | --- | ---: | ---: |
-| 10 companies once daily | 300 | about $1.50/month |
-| 100 companies once daily | 3,000 | about $15/month |
-| 100 companies every 6 hours | 12,000 | about $60/month |
+| 10 companies once daily | 300 | about $3.60/month |
+| 100 companies once daily | 3,000 | about $36/month |
+| 100 companies every 6 hours | 12,000 | about $144/month |
 
 These estimates assume complete scans, changes-only mode, and verification turned off. Actor starts and emitted dataset rows add small variable charges; optional apply-link verification is billed separately. Bronze, Silver, Gold, Platinum, and Diamond company-scan rates are lower than the Free-tier rate used above.
 
@@ -256,7 +266,7 @@ These estimates assume complete scans, changes-only mode, and verification turne
 
 Use [`01_github_changes_only.json`](01_github_changes_only.json) as the base, expand `companies` to 25 agreed canonical company URLs, and set `strictClosureQualityGate` to `true` when the workflow must reject coverage below 95%. Save the input as one Task and run that same Task once daily for seven days so state remains comparable.
 
-If all 25 company scans complete each day, the company-scan component is 175 scans, or `$0.875` at the Free-tier rate. Actor starts and emitted dataset rows add small variable charges.
+If all 25 company scans complete each day, the company-scan component is 175 scans, or `$2.10` at the Free-tier rate. Actor starts and emitted dataset rows add small variable charges.
 
 Judge the pilot on observed evidence:
 
@@ -365,3 +375,5 @@ The run summary adds `status` and `qualityError`. See [run summary schema](run_s
 These are dated public-source checks from 25 September 2026. Excerpts are not full datasets. No claim is made that every upstream inventory can be completely retrieved.
 
 The real Stripe regression also reproduced the upstream rejection: [run L1hEidxt9wq6xbpdY](https://console.apify.com/actors/ujkEG4gpQNbpYOQcc/runs/L1hEidxt9wq6xbpdY) retained 1,000 observed jobs when later pagination returned HTTP 400. It correctly FAILED the quality gate, reported source_pagination_limit, and charged zero company scans. [Input](06_live_stripe_input.json), [summary](06_live_stripe_summary.json), [three-row excerpt](06_live_stripe_output_excerpt.json). A 100% ratio against a rounded source count is not proof of complete inventory; complete remains false.
+
+The current [`input_schema.json`](input_schema.json) includes the corrected billing field descriptions; input types, defaults and validation constraints were preserved.

@@ -1,0 +1,104 @@
+{
+  "checkedAtUtc": "2026-10-06T17:44:37.629665+00:00",
+  "actorId": "ujkEG4gpQNbpYOQcc",
+  "actorUrl": "https://apify.com/kamerozkan/linkedin-hiring-signals",
+  "checkedLatestBuild": {
+    "buildId": "OHA8RiqQ9brwK7EX7",
+    "finishedAt": "2026-09-25T07:56:22.343Z",
+    "buildNumberInt": 200037,
+    "buildNumber": "0.2.37"
+  },
+  "activePricing": {
+    "minimalMaxTotalChargeUsd": null,
+    "pricingModel": "PAY_PER_EVENT",
+    "isPriceChangeNotificationSuppressed": false,
+    "pricingPerEvent": {
+      "actorChargeEvents": {
+        "company-scan": {
+          "eventTitle": "Company scan",
+          "eventDescription": "One company job inventory scanned and compared against saved state.",
+          "isOneTimeEvent": false,
+          "eventTieredPricingUsd": {
+            "FREE": {
+              "tieredEventPriceUsd": 0.012
+            },
+            "BRONZE": {
+              "tieredEventPriceUsd": 0.0108
+            },
+            "SILVER": {
+              "tieredEventPriceUsd": 0.0096
+            },
+            "GOLD": {
+              "tieredEventPriceUsd": 0.0084
+            },
+            "PLATINUM": {
+              "tieredEventPriceUsd": 0.0084
+            },
+            "DIAMOND": {
+              "tieredEventPriceUsd": 0.0084
+            }
+          },
+          "isPrimaryEvent": true
+        },
+        "apify-default-dataset-item": {
+          "eventTitle": "result",
+          "eventDescription": "Single result in the default dataset.",
+          "isOneTimeEvent": false,
+          "eventPriceUsd": 1e-05
+        },
+        "apify-actor-start": {
+          "eventTitle": "Actor Start",
+          "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+          "isOneTimeEvent": true,
+          "eventPriceUsd": 5e-05
+        }
+      }
+    },
+    "startedAt": "2026-09-08T19:13:29.000Z",
+    "apifyMarginPercentage": 0.2,
+    "createdAt": "2026-08-25T19:13:29.854Z",
+    "notifiedAboutFutureChangeAt": "2026-08-25T19:13:50.192Z",
+    "notifiedAboutChangeAt": "2026-09-08T19:35:40.991Z"
+  },
+  "pricingConfigurationChanged": false,
+  "newActorRuns": 0,
+  "newSourceObservations": false,
+  "newCustomerPaymentOrSatisfactionProven": false,
+  "historicalSampleFilesChanged": false,
+  "notes": "Completed company scans cost $0.012 on Free, $0.0108 on Bronze, $0.0096 on Silver and $0.0084 on Gold, Platinum or Diamond. Dataset events cost $0.00001 each, and startup costs $0.00005 per GB with a minimum of one event. Optional child verification is priced by the Verifier Actor: the checked Free rate is $0.005 per chargeable decision, so the unchanged $2 default budget covers at most 400 chargeable decisions, rather than all 500 permitted jobs. AMBIGUOUS verifier rows have no verified-job event. Use live Pricing for your plan.",
+  "limits": [
+    "Final publication separately gated by frozen source parity and protected metadata",
+    "Previous source-count safety QA remains dated; no new source output or payment is claimed"
+  ],
+  "publishedLatestBuild": {
+    "id": "d3eh3djvmIog0fdNm",
+    "buildNumber": "0.2.39",
+    "status": "SUCCEEDED",
+    "startedAt": "2026-10-06T18:09:58.466Z",
+    "finishedAt": "2026-10-06T18:10:29.726Z"
+  },
+  "cloudPublicationCompletedAtUtc": "2026-10-06T18:11:58.101409+00:00",
+  "publicLatestVerified": true,
+  "allFrozenSourceHashesVerified": true,
+  "sourceFileCountVerified": 42,
+  "sourceChangedFiles": [
+    "README.md",
+    ".actor/input_schema.json"
+  ],
+  "publishedReadmeSha256": "fdad18b815cd0e7c0a579a438ff773f4c18392dd54ff8b384752f74ad4b66d64",
+  "protectedMetadataUnchanged": true,
+  "envUnchanged": true,
+  "cloudReleaseEvidenceSha256": "5fd14c68f05ae364b6af8b9e3d85109cd4d1c920991b92719b91528777790f8f",
+  "cloudSourceManifestSha256": "bb19fbd56a4715c085f1335d18ab64457627a590f11c3ae9a4803acfe8b18157",
+  "cloudReadmeRepaired": true,
+  "storePublicationBlocked": false,
+  "publicationScope": "Verified cloud release and linked GitHub sample",
+  "inputSchemaSha256": "15cc5f4157b70a5ccd4d8d893df645f0d8c52144cff8999714257af6504ad664",
+  "inputSchemaDescriptionPropertiesChanged": [
+    "verificationMaxTotalChargeUsd"
+  ],
+  "earlierRuntimeRepairRetained": true,
+  "finalDocumentationReleaseRuntimeChanged": false,
+  "lowerBoundRuntimeEvidenceFile": "lower-bound-quality-verification-2026-10-06.json",
+  "proposedReadmeSha256": "0239571bdcdd596bd9699a9081864c6097a6f687ae10fbbb6f11402c8ad46304"
+}

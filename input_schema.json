@@ -123,7 +123,7 @@
         },
         "verificationMaxTotalChargeUsd": {
             "title": "Verification cost limit",
-            "description": "Maximum pay-per-event charge allowed for the child verification run. The default covers up to 500 results at the current $0.004 per verified job price.",
+            "description": "Maximum pay-per-event charge allowed for the child verification run. At the Free-tier verified-job price checked on 6 October 2026 ($0.005), the default $2 covers up to 400 chargeable decisions, rather than all 500 permitted jobs. AMBIGUOUS decisions have no verified-job event. Live Verifier Pricing is authoritative; keep this charge cap independent of the job-count limit.",
             "type": "number",
             "default": 2,
             "minimum": 0.004,

@@ -7,8 +7,8 @@
   "seoDescription": "Monitor public LinkedIn company jobs without login. Track new, changed and reopened roles, plus closures confirmed by complete scans, with quality status.",
   "isPublic": true,
   "url": "https://apify.com/kamerozkan/linkedin-hiring-signals",
-  "checkedAt": "2026-09-30",
-  "changeScope": "Published runtime source-count exactness repair and additive summary-schema documentation; original listing observations and historical fixtures retained",
+  "checkedAt": "2026-10-06",
+  "changeScope": "Current billing documentation and verified publication",
   "runtimeChanged": true,
   "schemasChanged": true,
   "examplesRegenerated": false,
@@ -104,5 +104,26 @@
     "sourceFilesVerified": 42,
     "protectedMetadataUnchanged": true,
     "freshSourceOutputVerified": false
-  }
+  },
+  "pricingDocumentationCheckedAt": "2026-10-06",
+  "pricingDocumentationChangeScope": "Current company-scan arithmetic and child budget description; pricing/defaults unchanged",
+  "pricingDocumentationRuntimeChanged": false,
+  "pricingVerificationFile": "pricing-verification-2026-10-06.json",
+  "maintenanceCheckedAt": "2026-10-06",
+  "publishedLatestBuild": {
+    "id": "d3eh3djvmIog0fdNm",
+    "buildNumber": "0.2.39",
+    "status": "SUCCEEDED",
+    "startedAt": "2026-10-06T18:09:58.466Z",
+    "finishedAt": "2026-10-06T18:10:29.726Z"
+  },
+  "maintenanceEvidenceFile": "pricing-verification-2026-10-06.json",
+  "pricingConfigurationChanged": false,
+  "storePublicationBlocked": false,
+  "publicationScope": "Verified cloud release and linked GitHub sample",
+  "inputSchemaDocumentationChanged": true,
+  "inputSchemaConstraintsChanged": false,
+  "inputSchemaFile": "input_schema.json",
+  "maintenanceChangeScope": "Earlier October 6 lower-bound runtime repair retained; final billing descriptions and buyer examples corrected",
+  "finalDocumentationReleaseRuntimeChanged": false
 }
