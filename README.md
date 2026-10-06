@@ -35,6 +35,12 @@ python3 quality_handoff.py \
 
 Expected classification: two research-ready fixture rows and two held diagnostics. The explicit replay clock does not check current availability. [Synthetic notice and expected counts](examples/quality-handoff-synthetic/NOTICE.md).
 
+## Read complete and exact-count markers before using coverage
+
+`OUTPUT.scans[].expectedJobsExact` distinguishes an exact source count (`true`), a lower-bound count such as `100+` (`false`), and an unavailable count (`null`). For an incomplete scan with a lower-bound or unknown denominator, `coverageRatio` is `null`; it is not a claim that the observed rows cover 100% of the inventory. Use `complete`, `usable` and `stopReason` together. Two identical repeated-page inventories against a lower-bound count do not qualify as complete and cannot advance missing-job closure counters or completed company-scan billing.
+
+The [October 6 quality verification](lower-bound-quality-verification-2026-10-06.json) uses fictional offline source pages to reproduce and prevent false completion. The repair is published as `latest` build `0.2.38` (`PhIqynrfzSX2WrFws`); all 42 frozen source-file hashes match the intended release and protected account metadata is unchanged. It does not establish current source availability, new customer output or a new-release cloud run. Historical saved examples keep their original fields and dates; older runs may omit `expectedJobsExact`. The private exporter and handoff helpers are unchanged.
+
 ## Export your completed run without three manual downloads
 
 The [completed-run exporter](export_completed_run.py) retrieves actual run metadata, its key-value-store `OUTPUT` and the full paginated dataset in one command. It sends authenticated GET requests only to `https://api.apify.com`; it never starts an Actor or changes a cloud resource. Supply an existing completed Hiring Signals run ID, not a Task ID:
@@ -342,7 +348,7 @@ It parses every JSON file, validates the three input contracts, checks output re
 
 ## Reliability repair: 25 September 2026
 
-Build `0.2.37` (`OHA8RiqQ9brwK7EX7`) is published as `latest`.
+Build `0.2.37` (`OHA8RiqQ9brwK7EX7`) was published as `latest` for this September 25 verification; it is retained here as historical evidence.
 
 The runtime preserves observed job rows if LinkedIn rejects a later pagination request with HTTP 400. Those scans report `source_pagination_limit`, remain incomplete and cannot close missing jobs or incur a completed-company-scan charge. Increasing the input limit does not remove upstream limits.
 

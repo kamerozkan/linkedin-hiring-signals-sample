@@ -61,6 +61,30 @@
           "stopReason": {
             "type": "string",
             "description": "Includes limit_reached for input caps and source_pagination_limit when LinkedIn rejects a later page with HTTP 400."
+          },
+          "expectedJobs": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "Source-reported exact count or lower bound; consult expectedJobsExact."
+          },
+          "expectedJobsExact": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "true for an exact count, false for a lower-bound header such as 100+, null when unavailable. May be absent in historical saved runs."
+          },
+          "coverageRatio": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Unknown denominator for incomplete lower-bound or missing-count scans is null. Completeness and usability are separate markers."
           }
         }
       }

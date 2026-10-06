@@ -1,0 +1,65 @@
+{
+  "verifiedOn": "2026-10-06",
+  "mode": "offline source-count quality regression",
+  "provenance": "Fictional company, job cards, source headers and previous state. No real customer data or source requests were used in the tests.",
+  "previousRuntimeObservedBuild": "0.2.37",
+  "baselineReproduction": {
+    "sourceHeader": "100+",
+    "matchingRepeatedInventoryRows": 100,
+    "independentSortSessions": 2,
+    "returnedComplete": true,
+    "returnedStopReason": "independent_consensus_reached",
+    "returnedCoverageRatio": 1
+  },
+  "candidateBehavior": {
+    "lowerBoundConsensusComplete": false,
+    "incompleteUnknownCoverageRatio": null,
+    "lowerBoundPartialUsable": false,
+    "missingJobClosureCreated": false,
+    "exactCountAndTerminalEmptyPathsPreserved": true
+  },
+  "validation": {
+    "newFocusedTestsPassed": 10,
+    "affectedTestsTotalPassed": 62,
+    "typeScriptCompilationPassed": true,
+    "networkCallsInTests": 0,
+    "cloudActorRunsInTests": 0
+  },
+  "existingOwnerSnapshotSeparateEvidence": {
+    "sourceBuild": "0.2.37",
+    "sourceDate": "2026-10-06",
+    "rowsExported": 353,
+    "completeCompanyScans": 23,
+    "incompleteCompanyScans": 1,
+    "researchReadyRows": 321,
+    "heldDiagnostics": 32,
+    "newActorRuns": 0,
+    "currentApplyRoutesVerified": false,
+    "customerAdoptionObserved": false,
+    "repairExecuted": false
+  },
+  "cloudRelease": {
+    "verified": true,
+    "buildNumber": "0.2.38",
+    "buildId": "PhIqynrfzSX2WrFws",
+    "sourceFilesVerified": 42,
+    "allSourceHashesVerified": true,
+    "publicLatestVerified": true,
+    "protectedMetadataUnchanged": true,
+    "environmentUnchanged": true,
+    "completedAtUtc": "2026-10-06T17:59:48.684929+00:00",
+    "newActorRuns": 0,
+    "freshSourceOutputVerified": false
+  },
+  "actualCustomerFalseClosureObserved": false,
+  "actualCustomerOverchargeObserved": false,
+  "historicalFixturesRegenerated": false,
+  "helpersChanged": false,
+  "inputAndDatasetSchemaChanged": false,
+  "pricingChanged": false,
+  "limits": [
+    "Offline fixtures reproduce a runtime quality defect, not a real customer loss or false closure.",
+    "The completed owner snapshot is compatibility evidence for the unchanged helper, not a fresh scrape or an execution of the repair.",
+    "Source access, application availability, uptime, external customer satisfaction, final billing and payout are not established by these tests."
+  ]
+}

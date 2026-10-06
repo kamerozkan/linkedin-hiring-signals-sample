@@ -8,9 +8,9 @@
   "isPublic": true,
   "url": "https://apify.com/kamerozkan/linkedin-hiring-signals",
   "checkedAt": "2026-09-30",
-  "changeScope": "Offline research-quality handoff plus private completed-run GET exporter; listing fields retain September 30 observations",
-  "runtimeChanged": false,
-  "schemasChanged": false,
+  "changeScope": "Published runtime source-count exactness repair and additive summary-schema documentation; original listing observations and historical fixtures retained",
+  "runtimeChanged": true,
+  "schemasChanged": true,
   "examplesRegenerated": false,
   "qualityHandoff": {
     "addedOn": "2026-10-02",
@@ -27,7 +27,7 @@
     "localTestsPassed": 39,
     "helperSha256": "e7deb224922f63dd382699b40c33fa7f2e5b14daa1edda2b3f6cd4eee63c21be"
   },
-  "sampleUpdatedOn": "2026-10-04",
+  "sampleUpdatedOn": "2026-10-06",
   "syntheticFixtureAdded": true,
   "completedRunExporter": {
     "addedOn": "2026-10-02",
@@ -85,5 +85,24 @@
       "actorRunsStarted": 0,
       "customerAdoptionObserved": false
     }
+  },
+  "runtimeCountExactness": {
+    "preparedOn": "2026-10-06",
+    "evidence": "lower-bound-quality-verification-2026-10-06.json",
+    "validationMode": "offline fictional source pages plus affected local tests",
+    "cloudReleaseVerified": true,
+    "cloudReleaseBuild": "0.2.38",
+    "inputSchemaChanged": false,
+    "datasetSchemaChanged": false,
+    "summarySchemaExtended": true,
+    "actorPricingChanged": false,
+    "newActorRuns": 0,
+    "customerFalseClosureOrOverchargeObserved": false,
+    "publishedOn": "2026-10-06",
+    "cloudReleaseBuildId": "PhIqynrfzSX2WrFws",
+    "allSourceHashesVerified": true,
+    "sourceFilesVerified": 42,
+    "protectedMetadataUnchanged": true,
+    "freshSourceOutputVerified": false
   }
 }
